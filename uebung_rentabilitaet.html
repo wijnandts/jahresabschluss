@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Übung: Rentabilitätskennzahlen</title>
+    <title>Übung: Rentabilitätskennzahlen (erweitert)</title>
     <style>
         :root { --t-light: #d5f5e3; --t-dark: #82e0aa; --t-text: #0e6251; --t3-color: #fce4ec; --t3-dark: #f06292; --bg-calc: #f8f9fa; }
         body { font-family: 'Segoe UI', sans-serif; padding: 20px; display: flex; flex-direction: column; align-items: center; }
@@ -24,14 +24,14 @@
         .exercise-card.dark { background: var(--t-dark); }
         .exercise-card.pro { background: var(--t3-color); border: 1px solid var(--t3-dark); }
         .input-group { display: flex; gap: 10px; align-items: center; }
-        .kennzahl-input { padding: 8px; width: 130px; text-align: right; font-weight: bold; border: 1px solid #ccc; border-radius: 4px; }
+        .kennzahl-input { padding: 8px; width: 150px; text-align: right; font-weight: bold; border: 1px solid #ccc; border-radius: 4px; }
         .check-btn { padding: 8px 15px; background: var(--t-text); color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
         .stage-content { display: none; }
         .stage-content.active { display: block; }
     </style>
 </head>
 <body>
-    <header><h1>Rentabilitätskennzahlen</h1><a href="index.html" style="text-decoration:none; color:var(--t-text); font-weight:bold;">← Übersicht</a></header>
+    <header><h1>Rentabilität & ø Kapital</h1><a href="index.html" style="text-decoration:none; color:var(--t-text); font-weight:bold;">← Übersicht</a></header>
     <div class="stage-selector">
         <button id="btn-s1" class="stage-btn active" onclick="showStage(1)">Stufe 1</button>
         <button id="btn-s2" class="stage-btn" onclick="showStage(2)">Stufe 2</button>
@@ -60,23 +60,23 @@
         function formatInput(el) { let val = el.value.replace(/[^\d]/g, ""); if (val === "") return; el.value = numFmt.format(parseInt(val, 10) / 100); }
         
         const pool = [
-            { name: "Aufgabe 1 (Basis)", ek: 3820000, gk: 8000000, umsatz: 12000000, gewinn: 450000, zinsen: 180000 },
-            { name: "Aufgabe 2 (Transfer)", ek: 2500000, gk: 6000000, umsatz: 9000000, gewinn: 350000, zinsen: 120000 },
-            { name: "Aufgabe 3 (Profi)", ek: 12450800.50, gk: 35800400.00, umsatz: 58900200.75, gewinn: 2850400.20, zinsen: 945600.00 }
+            { name: "Szenario A", ek_anfang: 3600000, ek_ende: 4040000, gk_anfang: 7800000, gk_ende: 8200000, gewinn: 450000, zinsen: 180000 },
+            { name: "Szenario B", ek_anfang: 2200000, ek_ende: 2800000, gk_anfang: 5500000, gk_ende: 6500000, gewinn: 350000, zinsen: 120000 },
+            { name: "Profi-Szenario", ek_anfang: 11200500, ek_ende: 13701101, gk_anfang: 32400000, gk_ende: 39200800, gewinn: 2850400, zinsen: 945600 }
         ];
 
         const defs = [
-            { n: "Eigenkapitalrentabilität", f: "(Gewinn / Eigenkapital) * 100", calc: (d) => (d.gewinn / d.ek) * 100 },
-            { n: "Gesamtkapitalrentabilität", f: "((Gewinn + Fremdkapitalzinsen) / Gesamtkapital) * 100", calc: (d) => ((d.gewinn + d.zinsen) / d.gk) * 100 },
-            { n: "Umsatzrentabilität", f: "(Gewinn / Umsatzerlöse) * 100", calc: (d) => (d.gewinn / d.umsatz) * 100 }
+            { n: "ø Eigenkapital", f: "(Anfangsb. + Endb.) / 2", calc: (d) => (d.ek_anfang + d.ek_ende) / 2, unit: "€" },
+            { n: "ø Gesamtkapital", f: "(Anfangsb. + Endb.) / 2", calc: (d) => (d.gk_anfang + d.gk_ende) / 2, unit: "€" },
+            { n: "EK-Rentabilität", f: "(Gewinn / ø EK) * 100", calc: (d) => (d.gewinn / ((d.ek_anfang + d.ek_ende) / 2)) * 100, unit: "%" }
         ];
 
         function setup(s, d) {
-            document.getElementById(`table-s${s}`).innerHTML = `<h3>${d.name}</h3><table><tr><th>Posten</th><th>Betrag</th></tr><tr><td>Eigenkapital</td><td>${euroFmt.format(d.ek)}</td></tr><tr><td>Gesamtkapital</td><td>${euroFmt.format(d.gk)}</td></tr><tr><td>Umsatzerlöse</td><td>${euroFmt.format(d.umsatz)}</td></tr><tr><td>Gewinn</td><td>${euroFmt.format(d.gewinn)}</td></tr><tr><td>Fremdkapitalzinsen</td><td>${euroFmt.format(d.zinsen)}</td></tr></table>`;
-            let h = ""; defs.forEach((k, i) => { let c = k.calc(d).toFixed(2); h += `<div class="exercise-card ${s===3?'pro':(i%2?'dark':'')}"><h4>${k.n}</h4>${s===1?`<small><b>Formel:</b> ${k.f}</small><br>`:''}<div class="input-group"><input type="text" class="kennzahl-input" id="i${s}_${i}" oninput="formatInput(this)" placeholder="0,00"> % <button class="check-btn" onclick="check('i${s}_${i}', ${c})">Prüfen</button></div></div>`; });
+            document.getElementById(`table-s${s}`).innerHTML = `<h3>${d.name}</h3><table><tr><th>Posten</th><th>Anfangsbestand</th><th>Endbestand</th></tr><tr><td>Eigenkapital</td><td>${euroFmt.format(d.ek_anfang)}</td><td>${euroFmt.format(d.ek_ende)}</td></tr><tr><td>Gesamtkapital</td><td>${euroFmt.format(d.gk_anfang)}</td><td>${euroFmt.format(d.gk_ende)}</td></tr><tr><td colspan="2">Gewinn</td><td>${euroFmt.format(d.gewinn)}</td></tr><tr><td colspan="2">FK-Zinsen</td><td>${euroFmt.format(d.zinsen)}</td></tr></table>`;
+            let h = ""; defs.forEach((k, i) => { let c = k.calc(d).toFixed(2); h += `<div class="exercise-card ${s===3?'pro':(i%2?'dark':'')}"><h4>${k.n}</h4>${s===1?`<small><b>Formel:</b> ${k.f}</small><br>`:''}<div class="input-group"><input type="text" class="kennzahl-input" id="i${s}_${i}" oninput="formatInput(this)" placeholder="0,00"> ${k.unit} <button class="check-btn" onclick="check('i${s}_${i}', ${c})">Prüfen</button></div></div>`; });
             document.getElementById(`tasks-s${s}`).innerHTML = h;
         }
-        function check(id, c) { let v = parseFloat(document.getElementById(id).value.replace(/\./g, "").replace(",", ".")); alert(Math.abs(v - c) < 0.1 ? "Richtig!" : "Falsch! Korrekt: " + numFmt.format(c) + "%"); }
+        function check(id, c) { let v = parseFloat(document.getElementById(id).value.replace(/\./g, "").replace(",", ".")); alert(Math.abs(v - c) < 0.1 ? "Richtig!" : "Falsch! Korrekt: " + numFmt.format(c)); }
         function showStage(n) { document.querySelectorAll('.stage-content').forEach(s => s.classList.remove('active')); document.querySelectorAll('.stage-btn').forEach(b => b.classList.remove('active')); document.getElementById('stage'+n).classList.add('active'); document.getElementById('btn-s'+n).classList.add('active'); }
         function add(v) { document.getElementById('calc-display').value += v; }
         function clr() { document.getElementById('calc-display').value = ''; }
