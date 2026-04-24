@@ -2,120 +2,34 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Übung: Kapitalumschlagshäufigkeit</title>
+    <title>Erklärung: Kapitalumschlag</title>
     <style>
-        :root { --t-light: #fcf3cf; --t-dark: #f7dc6f; --t-text: #7d6608; --t3-color: #fce4ec; --t3-dark: #f06292; --bg-calc: #f8f9fa; }
-        body { font-family: 'Segoe UI', sans-serif; padding: 20px; display: flex; flex-direction: column; align-items: center; background: #fff; }
-        header { width: 100%; max-width: 1100px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px; }
-        .stage-selector { display: flex; gap: 10px; margin-bottom: 20px; }
-        .stage-btn { padding: 10px 18px; border: 2px solid var(--t-text); background: white; border-radius: 25px; cursor: pointer; font-weight: bold; }
-        .stage-btn.active { background: var(--t-text); color: white; }
-        .btn-pro.active { background: var(--t3-dark); border-color: var(--t3-dark); }
-        .main-layout { display: flex; gap: 30px; width: 100%; max-width: 1100px; }
-        .content-area { flex: 2; }
-        .calculator-sidebar { flex: 1; max-width: 300px; background: var(--bg-calc); padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: sticky; top: 20px; }
-        #calc-display { width: 100%; height: 50px; background: #fff; border: 1px solid #ccc; border-radius: 5px; text-align: right; padding: 10px; font-size: 1.1em; margin-bottom: 10px; box-sizing: border-box; }
-        .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
-        .calc-grid button { padding: 12px; border: 1px solid #ddd; border-radius: 5px; background: #fff; cursor: pointer; font-weight: bold; }
-        .btn-op { background: #eee !important; }
-        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 0.9em; background: #fff; }
-        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-        th { background: #f2f2f2; }
-        .exercise-card { background: var(--t-light); padding: 20px; border-radius: 10px; margin-bottom: 10px; }
-        .exercise-card.dark { background: var(--t-dark); }
-        .exercise-card.pro { background: var(--t3-color); border: 1px solid var(--t3-dark); }
-        .input-group { display: flex; gap: 10px; align-items: center; }
-        .kennzahl-input { padding: 8px; width: 150px; text-align: right; font-weight: bold; border: 1px solid #ccc; border-radius: 4px; }
-        .check-btn { padding: 8px 15px; background: var(--t-text); color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
-        .stage-content { display: none; }
-        .stage-content.active { display: block; }
+        :root { --t-light: #fcf3cf; --t-text: #7d6608; }
+        body { font-family: 'Segoe UI', sans-serif; background: #fff; color: #333; line-height: 1.6; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .container { max-width: 850px; width: 100%; }
+        header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 30px; }
+        .back-btn { text-decoration: none; color: var(--t-text); font-weight: bold; }
+        h1 { color: var(--t-text); margin: 0; }
+        .section { background: #f9f9f9; padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid var(--t-text); }
+        .formula { background: #fff; padding: 15px; border: 1px dashed var(--t-text); border-radius: 8px; font-family: 'Courier New', monospace; font-weight: bold; margin: 10px 0; text-align: center; }
     </style>
 </head>
 <body>
-    <header><h1>Kapitalumschlagshäufigkeit</h1><a href="index.html" style="text-decoration:none; color:var(--t-text); font-weight:bold;">← Übersicht</a></header>
-    
-    <div class="stage-selector">
-        <button id="btn-s1" class="stage-btn active" onclick="showStage(1)">Stufe 1</button>
-        <button id="btn-s2" class="stage-btn" onclick="showStage(2)">Stufe 2</button>
-        <button id="btn-s3" class="stage-btn btn-pro" onclick="showStage(3)">Stufe 3 (Profi)</button>
-    </div>
+    <div class="container">
+        <header><h1>Umschlagskennzahlen des Kapitals</h1><a href="index.html" class="back-btn">← Übersicht</a></header>
 
-    <div class="main-layout">
-        <div class="content-area">
-            <div id="stage1" class="stage-content active"><div id="table-s1"></div><div id="tasks-s1"></div></div>
-            <div id="stage2" class="stage-content"><div id="table-s2"></div><div id="tasks-s2"></div></div>
-            <div id="stage3" class="stage-content"><div id="table-s3"></div><div id="tasks-s3"></div></div>
+        <div class="section">
+            <h2>Bedeutung des Kapitalumschlags</h2>
+            <p>Diese Kennzahlen zeigen Ihnen, wie effizient das eingesetzte Kapital genutzt wird, um Umsatzerlöse zu erzielen. Ein hoher Umschlag weist auf eine produktive Kapitalnutzung hin.</p>
+            <div class="formula">Eigenkapitalumschlag = Umsatzerlöse / ø Eigenkapital</div>
+            <div class="formula">Gesamtkapitalumschlag = Umsatzerlöse / ø Gesamtkapital</div>
         </div>
 
-        <div class="calculator-sidebar">
-            <input type="text" id="calc-display" readonly placeholder="0,00">
-            <div class="calc-grid">
-                <button class="btn-op" onclick="add('(')">(</button><button class="btn-op" onclick="add(')')">)</button><button onclick="clr()" style="color:red">C</button><button onclick="del()">⌫</button>
-                <button onclick="add('7')">7</button><button onclick="add('8')">8</button><button onclick="add('9')">9</button><button class="btn-op" onclick="add('/')">/</button>
-                <button onclick="add('4')">4</button><button onclick="add('5')">5</button><button onclick="add('6')">6</button><button class="btn-op" onclick="add('*')">*</button>
-                <button onclick="add('1')">1</button><button onclick="add('2')">2</button><button onclick="add('3')">3</button><button class="btn-op" onclick="add('-')">-</button>
-                <button onclick="add('0')">0</button><button onclick="add('.')">,</button><button class="btn-op" onclick="add('+')">+</button><button onclick="solve()" style="background:var(--t-dark)!important;">=</button>
-            </div>
+        <div class="section">
+            <h2>Durchschnittsbildung</h2>
+            <p>Beachten Sie auch hier, dass Sie für die Umschlagshäufigkeit den Durchschnittswert aus Anfangs- und Endbestand des Kapitals verwenden.</p>
+            <div class="formula">ø Kapital = (Bestand 01.01. + Bestand 31.12.) / 2</div>
         </div>
     </div>
-
-    <script>
-        const numFmt = new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        const euroFmt = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' });
-        
-        function formatInput(el) { 
-            let val = el.value.replace(/[^\d]/g, ""); 
-            if (val === "") return; 
-            el.value = numFmt.format(parseInt(val, 10) / 100); 
-        }
-        
-        const pool = [
-            { name: "Handelsbetrieb Alpha", umsatz: 12000000, ek_anfang: 2800000, ek_ende: 3200000, gk_anfang: 5800000, gk_ende: 6200000 },
-            { name: "Logistik GmbH", umsatz: 8500000, ek_anfang: 1900000, ek_ende: 2100000, gk_anfang: 4100000, gk_ende: 4400000 },
-            { name: "Industrie-AG (Profi)", umsatz: 45890200.50, ek_anfang: 10250400, ek_ende: 12450800.50, gk_anfang: 25480900, gk_ende: 28940500.20 }
-        ];
-
-        const defs = [
-            { n: "ø Eigenkapital", f: "(EK Anfang + EK Ende) / 2", calc: (d) => (d.ek_anfang + d.ek_ende) / 2, unit: "€" },
-            { n: "ø Gesamtkapital", f: "(GK Anfang + GK Ende) / 2", calc: (d) => (d.gk_anfang + d.gk_ende) / 2, unit: "€" },
-            { n: "Eigenkapitalumschlagshäufigkeit", f: "Umsatzerlöse / ø Eigenkapital", calc: (d) => d.umsatz / ((d.ek_anfang + d.ek_ende) / 2), unit: "mal" },
-            { n: "Gesamtkapitalumschlagshäufigkeit", f: "Umsatzerlöse / ø Gesamtkapital", calc: (d) => d.umsatz / ((d.gk_anfang + d.gk_ende) / 2), unit: "mal" }
-        ];
-
-        function setup(s, d) {
-            document.getElementById(`table-s${s}`).innerHTML = `<h3>${d.name}</h3><table><tr><th>Posten</th><th>Anfangsbestand</th><th>Endbestand</th></tr><tr><td>Eigenkapital</td><td>${euroFmt.format(d.ek_anfang)}</td><td>${euroFmt.format(d.ek_ende)}</td></tr><tr><td>Gesamtkapital</td><td>${euroFmt.format(d.gk_anfang)}</td><td>${euroFmt.format(d.gk_ende)}</td></tr><tr><td colspan="2">Umsatzerlöse (jährlich)</td><td>${euroFmt.format(d.umsatz)}</td></tr></table>`;
-            let h = ""; 
-            defs.forEach((k, i) => { 
-                let c = k.calc(d).toFixed(2); 
-                h += `<div class="exercise-card ${s===3?'pro':(i%2?'dark':'')}"><h4>${k.n}</h4>${s===1?`<small><b>Formel:</b> ${k.f}</small><br>`:''}<div class="input-group"><input type="text" class="kennzahl-input" id="i${s}_${i}" oninput="formatInput(this)" placeholder="0,00"> ${k.unit} <button class="check-btn" onclick="check('i${s}_${i}', ${c})">Prüfen</button></div></div>`; 
-            });
-            document.getElementById(`tasks-s${s}`).innerHTML = h;
-        }
-
-        function check(id, c) { 
-            let v = parseFloat(document.getElementById(id).value.replace(/\./g, "").replace(",", ".")); 
-            if(Math.abs(v - c) < 0.1) alert("Richtig!"); 
-            else alert("Leider falsch. Korrekt wäre: " + numFmt.format(c)); 
-        }
-
-        function showStage(n) { 
-            document.querySelectorAll('.stage-content').forEach(s => s.classList.remove('active')); 
-            document.querySelectorAll('.stage-btn').forEach(b => b.classList.remove('active')); 
-            document.getElementById('stage'+n).classList.add('active'); 
-            document.getElementById('btn-s'+n).classList.add('active'); 
-        }
-        
-        function add(v) { document.getElementById('calc-display').value += v; }
-        function clr() { document.getElementById('calc-display').value = ''; }
-        function del() { document.getElementById('calc-display').value = document.getElementById('calc-display').value.slice(0,-1); }
-        function solve() { 
-            try { 
-                let res = eval(document.getElementById('calc-display').value.replace(/,/g, '.')); 
-                document.getElementById('calc-display').value = numFmt.format(res); 
-            } catch { document.getElementById('calc-display').value = 'Fehler'; } 
-        }
-        
-        window.onload = () => { setup(1, pool[0]); setup(2, pool[1]); setup(3, pool[2]); };
-    </script>
 </body>
 </html>
