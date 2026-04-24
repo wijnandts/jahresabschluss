@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Erklärung: Umschlagshäufigkeit</title>
+    <style>
+        :root { --t-light: #fcf3cf; --t-text: #7d6608; }
+        body { font-family: 'Segoe UI', sans-serif; background: #fff; color: #333; line-height: 1.6; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .container { max-width: 800px; width: 100%; }
+        header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 30px; }
+        .back-btn { text-decoration: none; color: var(--t-text); font-weight: bold; }
+        h1 { color: var(--t-text); margin: 0; }
+        .section { background: #f9f9f9; padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid var(--t-text); }
+        .formula { background: #fff; padding: 15px; border: 1px dashed var(--t-text); border-radius: 8px; font-family: 'Courier New', monospace; font-weight: bold; margin: 10px 0; text-align: center; }
+        .example { background: var(--t-light); padding: 15px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header><h1>Geschwindigkeit (Umschlag)</h1><a href="index.html" class="back-btn">← Übersicht</a></header>
+
+        <div class="section">
+            <h2>Kapitalumschlagshäufigkeit</h2>
+            <p>Wie oft "rotiert" das investierte Geld im Jahr durch den Verkauf wieder zurück in die Kasse?</p>
+            <div class="formula">Umschlag = Umsatzerlöse / ø Gesamtkapital</div>
+            <div class="example">
+                <strong>Beispiel:</strong> Du hast 1.000 € ø Kapital und machst 5.000 € Umsatz. <br>
+                <span style="font-weight:bold; color:#b7950b;">Ergebnis:</span> Dein Geld ist 5-mal im Jahr umgeschlagen.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Lagerumschlag & Lagerdauer</h2>
+            <p>Wie oft wird das Lager leer verkauft und wie viele Tage liegt ein Produkt im Schnitt im Regal?</p>
+            <div class="formula">Umschlagshäufigkeit = Wareneinsatz / ø Lagerbestand</div>
+            <div class="formula">Lagerdauer = 360 Tage / Umschlagshäufigkeit</div>
+        </div>
+    </div>
+</body>
+</html>
