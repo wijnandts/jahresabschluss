@@ -12,32 +12,43 @@
         h1 { color: var(--t-text); margin: 0; }
         .section { background: #f9f9f9; padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid var(--t-text); }
         .formula { background: #fff; padding: 15px; border: 1px dashed var(--t-text); border-radius: 8px; font-family: 'Courier New', monospace; font-weight: bold; margin: 10px 0; text-align: center; }
+        .analysis { background: #fff; padding: 10px; border-radius: 8px; margin-top: 10px; border-left: 3px solid #3498db; font-size: 0.95em; }
     </style>
 </head>
 <body>
     <div class="container">
-        <header><h1>Bilanzanalyse</h1><a href="index.html" class="back-btn">← Übersicht</a></header>
+        <header><h1>Bilanzanalyse: Vermögen und Finanzierung</h1><a href="index.html" class="back-btn">← Übersicht</a></header>
 
         <div class="section">
-            <h2>Vermögensstruktur</h2>
-            <p>Diese Kennzahlen zeigen die Bindung des Kapitals im Vermögen auf.</p>
+            <h2>Anlage- und Umlaufintensität</h2>
             <div class="formula">Anlageintensität = (Anlagevermögen / Gesamtvermögen) * 100</div>
-            <div class="formula">Umlaufintensität = (Umlaufvermögen / Gesamtvermögen) * 100</div>
+            <div class="analysis">
+                <strong>Aussage & Zweck:</strong> Sie zeigen die Flexibilität des Unternehmens. Eine hohe Anlageintensität bedeutet hohe Fixkosten (Abschreibungen, Versicherungen) und eine schwere Anpassung an Marktveränderungen. Die Umlaufintensität zeigt hingegen, wie viel Kapital in kurzfristigen Werten (Vorräte, Forderungen) gebunden ist.
+            </div>
         </div>
 
         <div class="section">
-            <h2>Finanzierung und Deckung</h2>
-            <p>Hier analysieren Sie die Unabhängigkeit (Quote) und die Fristenkongruenz (Deckung).</p>
+            <h2>Eigenkapitalquote</h2>
             <div class="formula">Eigenkapitalquote = (Eigenkapital / Gesamtkapital) * 100</div>
-            <div class="formula">Anlagendeckung I = (Eigenkapital / Anlagevermögen) * 100</div>
-            <div class="formula">Anlagendeckung II = ((EK + langfr. Fremdkapital) / Anlagevermögen) * 100</div>
+            <div class="analysis">
+                <strong>Aussage & Zweck:</strong> Maßstab für die finanzielle Unabhängigkeit. Eine hohe Quote bedeutet hohe Krisenfestigkeit, da weniger Zins- und Tilgungsdruck durch externe Gläubiger besteht. Sie ist die wichtigste Kennzahl für das Banken-Rating.
+            </div>
         </div>
 
         <div class="section">
-            <h2>Liquiditätsgrade</h2>
-            <p>Maßstab für die Zahlungsfähigkeit unter Berücksichtigung verschiedener Vermögenswerte.</p>
-            <div class="formula">Liquidität 1. Grades = (Flüssige Mittel / kurzfr. Fremdkapital) * 100</div>
+            <h2>Anlagendeckung II</h2>
+            <div class="formula">Anlagendeckung II = ((EK + langfr. Fremdkapital) / Anlagevermögen) * 100</div>
+            <div class="analysis">
+                <strong>Aussage & Zweck:</strong> Prüft die Einhaltung der "Goldenen Bilanzregel". Langfristiges Vermögen muss langfristig finanziert sein. Ein Wert unter 100 % signalisiert eine gefährliche Fristeninkongruenz, da Teile des Anlagevermögens kurzfristig zurückgezahlt werden müssten.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Liquidität 2. Grades</h2>
             <div class="formula">Liquidität 2. Grades = ((Flüssige Mittel + Forderungen) / kurzfr. Fremdkapital) * 100</div>
+            <div class="analysis">
+                <strong>Aussage & Zweck:</strong> Misst die Zahlungsfähigkeit unter Einbeziehung kurzfristig eingehender Kundenzahlungen. Sie ist aussagekräftiger als Grad 1, da sie zeigt, ob die laufenden Einnahmen ausreichen, um die sofort fälligen Schulden zu decken. Ziel: ca. 100 %.
+            </div>
         </div>
     </div>
 </body>
