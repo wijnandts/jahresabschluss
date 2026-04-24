@@ -5,9 +5,8 @@
     <title>Übung: Rentabilitätskennzahlen</title>
     <style>
         :root { --t-light: #d5f5e3; --t-dark: #82e0aa; --t-text: #0e6251; --t3-color: #fce4ec; --t3-dark: #f06292; --bg-calc: #f8f9fa; }
-        /* CSS identisch zu oben, nur --t-Farben geändert */
-        body { font-family: 'Segoe UI', sans-serif; padding: 20px; display: flex; flex-direction: column; align-items: center; background: #fff; }
-        header { width: 100%; max-width: 1100px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px; }
+        body { font-family: 'Segoe UI', sans-serif; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        header { width: 100%; max-width: 1100px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; margin-bottom: 20px; }
         .stage-selector { display: flex; gap: 10px; margin-bottom: 20px; }
         .stage-btn { padding: 10px 18px; border: 2px solid var(--t-text); background: white; border-radius: 25px; cursor: pointer; font-weight: bold; }
         .stage-btn.active { background: var(--t-text); color: white; }
@@ -21,7 +20,6 @@
         .btn-op { background: #eee !important; }
         table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 0.9em; background: #fff; }
         th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-        th { background: #f2f2f2; }
         .exercise-card { background: var(--t-light); padding: 20px; border-radius: 10px; margin-bottom: 10px; }
         .exercise-card.dark { background: var(--t-dark); }
         .exercise-card.pro { background: var(--t3-color); border: 1px solid var(--t3-dark); }
@@ -33,7 +31,7 @@
     </style>
 </head>
 <body>
-    <header><h1>Rentabilität</h1><a href="index.html" style="text-decoration:none; color:var(--t-text); font-weight:bold;">← Übersicht</a></header>
+    <header><h1>Rentabilitätskennzahlen</h1><a href="index.html" style="text-decoration:none; color:var(--t-text); font-weight:bold;">← Übersicht</a></header>
     <div class="stage-selector">
         <button id="btn-s1" class="stage-btn active" onclick="showStage(1)">Stufe 1</button>
         <button id="btn-s2" class="stage-btn" onclick="showStage(2)">Stufe 2</button>
@@ -52,7 +50,7 @@
                 <button onclick="add('7')">7</button><button onclick="add('8')">8</button><button onclick="add('9')">9</button><button class="btn-op" onclick="add('/')">/</button>
                 <button onclick="add('4')">4</button><button onclick="add('5')">5</button><button onclick="add('6')">6</button><button class="btn-op" onclick="add('*')">*</button>
                 <button onclick="add('1')">1</button><button onclick="add('2')">2</button><button onclick="add('3')">3</button><button class="btn-op" onclick="add('-')">-</button>
-                <button onclick="add('0')">0</button><button onclick="add('.')">,</button><button class="btn-op" onclick="add('+')">+</button><button onclick="solve()" style="background:var(--t-dark)!important; color:white;">=</button>
+                <button onclick="add('0')">0</button><button onclick="add('.')">,</button><button class="btn-op" onclick="add('+')">+</button><button onclick="solve()" style="background:var(--t-dark)!important;">=</button>
             </div>
         </div>
     </div>
@@ -62,15 +60,15 @@
         function formatInput(el) { let val = el.value.replace(/[^\d]/g, ""); if (val === "") return; el.value = numFmt.format(parseInt(val, 10) / 100); }
         
         const pool = [
-            { name: "Basis-Szenario", ek: 3820000, gk: 8000000, umsatz: 12000000, gewinn: 450000, zinsen: 180000 },
-            { name: "Szenario B", ek: 2000000, gk: 5000000, umsatz: 8500000, gewinn: 320000, zinsen: 95000 },
-            { name: "Profi-Szenario", ek: 10250400, gk: 25480900, umsatz: 45890200, gewinn: 2145600, zinsen: 845900 }
+            { name: "Aufgabe 1 (Basis)", ek: 3820000, gk: 8000000, umsatz: 12000000, gewinn: 450000, zinsen: 180000 },
+            { name: "Aufgabe 2 (Transfer)", ek: 2500000, gk: 6000000, umsatz: 9000000, gewinn: 350000, zinsen: 120000 },
+            { name: "Aufgabe 3 (Profi)", ek: 12450800.50, gk: 35800400.00, umsatz: 58900200.75, gewinn: 2850400.20, zinsen: 945600.00 }
         ];
 
         const defs = [
-            { n: "Eigenkapitalrentabilität", f: "(Gewinn / EK) * 100", calc: (d) => (d.gewinn / d.ek) * 100 },
-            { n: "Gesamtkapitalrentabilität", f: "((Gewinn + Zinsen) / GK) * 100", calc: (d) => ((d.gewinn + d.zinsen) / d.gk) * 100 },
-            { n: "Umsatzrentabilität", f: "(Gewinn / Umsatz) * 100", calc: (d) => (d.gewinn / d.umsatz) * 100 }
+            { n: "Eigenkapitalrentabilität", f: "(Gewinn / Eigenkapital) * 100", calc: (d) => (d.gewinn / d.ek) * 100 },
+            { n: "Gesamtkapitalrentabilität", f: "((Gewinn + Fremdkapitalzinsen) / Gesamtkapital) * 100", calc: (d) => ((d.gewinn + d.zinsen) / d.gk) * 100 },
+            { n: "Umsatzrentabilität", f: "(Gewinn / Umsatzerlöse) * 100", calc: (d) => (d.gewinn / d.umsatz) * 100 }
         ];
 
         function setup(s, d) {
@@ -78,7 +76,7 @@
             let h = ""; defs.forEach((k, i) => { let c = k.calc(d).toFixed(2); h += `<div class="exercise-card ${s===3?'pro':(i%2?'dark':'')}"><h4>${k.n}</h4>${s===1?`<small><b>Formel:</b> ${k.f}</small><br>`:''}<div class="input-group"><input type="text" class="kennzahl-input" id="i${s}_${i}" oninput="formatInput(this)" placeholder="0,00"> % <button class="check-btn" onclick="check('i${s}_${i}', ${c})">Prüfen</button></div></div>`; });
             document.getElementById(`tasks-s${s}`).innerHTML = h;
         }
-        function check(id, c) { let v = parseFloat(document.getElementById(id).value.replace(/\./g, "").replace(",", ".")); if(Math.abs(v - c) < 0.1) alert("Richtig!"); else alert("Falsch! Korrekt: " + numFmt.format(c) + "%"); }
+        function check(id, c) { let v = parseFloat(document.getElementById(id).value.replace(/\./g, "").replace(",", ".")); alert(Math.abs(v - c) < 0.1 ? "Richtig!" : "Falsch! Korrekt: " + numFmt.format(c) + "%"); }
         function showStage(n) { document.querySelectorAll('.stage-content').forEach(s => s.classList.remove('active')); document.querySelectorAll('.stage-btn').forEach(b => b.classList.remove('active')); document.getElementById('stage'+n).classList.add('active'); document.getElementById('btn-s'+n).classList.add('active'); }
         function add(v) { document.getElementById('calc-display').value += v; }
         function clr() { document.getElementById('calc-display').value = ''; }
