@@ -11,35 +11,34 @@
         .back-btn { text-decoration: none; color: var(--t-text); font-weight: bold; }
         h1 { color: var(--t-text); margin: 0; }
         .section { background: #f9f9f9; padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid var(--t-text); }
-        .formula { background: #fff; padding: 15px; border: 1px dashed var(--t-text); border-radius: 8px; font-family: 'Courier New', monospace; font-weight: bold; margin: 10px 0; display: block; text-align: center; }
-        .example { background: var(--t-light); padding: 15px; border-radius: 8px; font-size: 0.95em; }
-        .highlight { color: #c0392b; font-weight: bold; }
+        .formula { background: #fff; padding: 15px; border: 1px dashed var(--t-text); border-radius: 8px; font-family: 'Courier New', monospace; font-weight: bold; margin: 10px 0; text-align: center; }
     </style>
 </head>
 <body>
     <div class="container">
-        <header><h1>Bilanzanalyse & Finanzierung</h1><a href="index.html" class="back-btn">← Übersicht</a></header>
+        <header><h1>Finanzwirtschaftliche Bilanzanalyse</h1><a href="index.html" class="back-btn">← Übersicht</a></header>
 
         <div class="section">
-            <h2>Eigenkapitalquote</h2>
-            <p>Diese Kennzahl gibt den Anteil des Eigenkapitals am Gesamtkapital an. Sie dient als Maßstab für die finanzielle Unabhängigkeit und Kreditwürdigkeit Ihres Unternehmens.</p>
+            <h2>Strukturanalyse der Aktivseite (Vermögen)</h2>
+            <p>Diese Kennzahlen geben Auskunft über die Zusammensetzung des Vermögens und die Flexibilität des Unternehmens.</p>
+            <div class="formula">Anlageintensität = (Anlagevermögen / Gesamtvermögen) * 100</div>
+            <div class="formula">Umlaufintensität = (Umlaufvermögen / Gesamtvermögen) * 100</div>
+        </div>
+
+        <div class="section">
+            <h2>Strukturanalyse der Passivseite (Kapital)</h2>
+            <p>Hier analysieren Sie das Verhältnis zwischen Eigen- und Fremdkapital, was Rückschlüsse auf die Unabhängigkeit zulässt.</p>
             <div class="formula">Eigenkapitalquote = (Eigenkapital / Gesamtkapital) * 100</div>
+            <div class="formula">Fremdkapitalquote = (Fremdkapital / Gesamtkapital) * 100</div>
         </div>
 
         <div class="section">
-            <h2>Anlagendeckung II (Silberne Bilanzregel)</h2>
-            <p>Hierbei prüfen Sie, ob das Anlagevermögen durch langfristiges Kapital (Eigenkapital + langfristiges Fremdkapital) gedeckt ist. Zielwert: <span class="highlight">> 100 %</span>.</p>
-            <div class="formula">Anlagendeckung II = ((Eigenkapital + langfr. Fremdkapital) / Anlagevermögen) * 100</div>
-        </div>
-
-        <div class="section">
-            <h2>Liquidität 2. Grades (Einzugsliquidität)</h2>
-            <p>Sie gibt an, inwieweit die kurzfristigen Verbindlichkeiten durch flüssige Mittel und Forderungen gedeckt sind. Zielwert: <span class="highlight">ca. 100 %</span>.</p>
+            <h2>Anlagendeckung & Liquidität</h2>
+            <p>Diese Kennzahlen prüfen die Einhaltung der Goldenen Bilanzregel und die kurzfristige Zahlungsfähigkeit.</p>
+            <div class="formula">Anlagendeckung I = (Eigenkapital / Anlagevermögen) * 100</div>
+            <div class="formula">Anlagendeckung II = ((EK + langfr. Fremdkapital) / Anlagevermögen) * 100</div>
+            <div class="formula">Liquidität 1. Grades = (Flüssige Mittel / kurzfr. Fremdkapital) * 100</div>
             <div class="formula">Liquidität 2. Grades = ((Flüssige Mittel + Forderungen) / kurzfr. Fremdkapital) * 100</div>
-            <div class="example">
-                <strong>Beispiel:</strong> Flüssige Mittel (50 T€) + Forderungen (150 T€) bei kurzfristigem Fremdkapital von 200 T€. <br>
-                <strong>Berechnung:</strong> (200.000 / 200.000) * 100 = <strong>100,00 %</strong>
-            </div>
         </div>
     </div>
 </body>
