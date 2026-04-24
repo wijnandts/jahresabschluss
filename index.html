@@ -1,1 +1,139 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lernportal - Bilanzanalyse</title>
+    <style>
+        :root {
+            /* Thema 1: Blau (Vermögensstruktur) */
+            --t1-light: #3498db;
+            --t1-dark: #21618c;
+            /* Thema 2: Grün (Kapitalstruktur) */
+            --t2-light: #2ecc71;
+            --t2-dark: #1e8449;
+            /* Thema 3: Gelb/Orange (Liquidität) */
+            --t3-light: #f1c40f;
+            --t3-dark: #b7950b;
+        }
 
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #121212; /* Dunkler Hintergrund für Fokus */
+            color: #ffffff;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 2px solid #555;
+            padding-bottom: 10px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .tile {
+            padding: 30px;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .tile:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.5);
+        }
+
+        .tile span {
+            font-size: 0.8em;
+            font-weight: normal;
+            margin-top: 5px;
+            opacity: 0.9;
+        }
+
+        /* Farbschema Zuweisung */
+        .t1-exp { background-color: var(--t1-light); }
+        .t1-exe { background-color: var(--t1-dark); }
+        
+        .t2-exp { background-color: var(--t2-light); }
+        .t2-exe { background-color: var(--t2-dark); }
+        
+        .t3-exp { background-color: var(--t3-light); }
+        .t3-exe { background-color: var(--t3-dark); }
+
+        .contact-btn {
+            margin-top: 50px;
+            padding: 15px 40px;
+            background-color: #e74c3c;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background 0.3s;
+        }
+
+        .contact-btn:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Übersicht: Bilanzkennzahlen</h1>
+
+    <div class="grid-container">
+        <a href="erklaerung_vermoegen.html" class="tile t1-exp">
+            Vermögensstruktur
+            <span>Erklärung</span>
+        </a>
+        <a href="uebung_vermoegen.html" class="tile t1-exe">
+            Vermögensstruktur
+            <span>Übung</span>
+        </a>
+
+        <a href="erklaerung_kapital.html" class="tile t2-exp">
+            Kapitalstruktur
+            <span>Erklärung</span>
+        </a>
+        <a href="uebung_kapital.html" class="tile t2-exe">
+            Kapitalstruktur
+            <span>Übung</span>
+        </a>
+
+        <a href="erklaerung_liquiditaet.html" class="tile t3-exp">
+            Liquidität & Deckung
+            <span>Erklärung</span>
+        </a>
+        <a href="uebung_liquiditaet.html" class="tile t3-exe">
+            Liquidität & Deckung
+            <span>Übung</span>
+        </a>
+    </div>
+
+    <a href="mailto:wijnandts@bk-erkelenz.de?subject=Anfrage%20zur%20Bilanzanalyse" class="contact-btn">
+        Kontakt via E-Mail
+    </a>
+
+</body>
+</html>
