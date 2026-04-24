@@ -3,217 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Übung: Bilanzkennzahlen</title>
+    <title>Übung: Bilanzkennzahlen - Aufgabenpool</title>
     <style>
         :root {
-            --t1-light: #d6eaf8;
-            --t1-dark: #85c1e9;
-            --t1-text: #1b4f72;
-            --success: #27ae60;
-            --error: #e74c3c;
-            --bg-calc: #f8f9fa;
+            --t1-light: #d6eaf8; --t1-dark: #85c1e9; --t1-text: #1b4f72;
+            --success: #27ae60; --error: #e74c3c; --bg-calc: #f8f9fa;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #ffffff;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        header {
-            width: 100%;
-            max-width: 1100px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
-        }
-
+        body { font-family: 'Segoe UI', sans-serif; background: #fff; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        header { width: 100%; max-width: 1100px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px; }
         .back-btn { text-decoration: none; color: var(--t1-text); font-weight: bold; }
 
-        .stage-selector {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 25px;
-        }
+        .stage-selector { display: flex; gap: 10px; margin-bottom: 20px; }
+        .stage-btn { padding: 10px 20px; border: 2px solid var(--t1-text); background: white; color: var(--t1-text); border-radius: 25px; cursor: pointer; font-weight: bold; }
+        .stage-btn.active { background: var(--t1-text); color: white; }
 
-        .stage-btn {
-            padding: 10px 20px;
-            border: 2px solid var(--t1-text);
-            background: white;
-            color: var(--t1-text);
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .stage-btn.active {
-            background: var(--t1-text);
-            color: white;
-        }
-
-        .main-layout {
-            display: flex;
-            flex-direction: row;
-            gap: 30px;
-            width: 100%;
-            max-width: 1100px;
-            align-items: flex-start;
-        }
-
+        .main-layout { display: flex; gap: 30px; width: 100%; max-width: 1100px; align-items: flex-start; }
         .content-area { flex: 2; }
-
-        /* Rechner Styling */
-        .calculator-sidebar {
-            flex: 1;
-            max-width: 300px;
-            background: var(--bg-calc);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 20px;
-        }
-
-        #calc-display {
-            width: 100%; height: 50px; background: #fff; border: 1px solid #ccc;
-            border-radius: 5px; text-align: right; padding: 10px; font-size: 1.4em;
-            margin-bottom: 15px; box-sizing: border-box;
-        }
-
-        .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-        .calc-grid button {
-            padding: 12px 5px; font-size: 1.1em; border: 1px solid #ddd;
-            border-radius: 5px; background: #fff; cursor: pointer;
-        }
-        .btn-op { background: #f0f0f0 !important; font-weight: bold; }
+        
+        /* Rechner */
+        .calculator-sidebar { flex: 1; max-width: 300px; background: var(--bg-calc); padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: sticky; top: 20px; }
+        #calc-display { width: 100%; height: 45px; background: #fff; border: 1px solid #ccc; border-radius: 5px; text-align: right; padding: 10px; font-size: 1.3em; margin-bottom: 10px; box-sizing: border-box; }
+        .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
+        .calc-grid button { padding: 12px; border: 1px solid #ddd; border-radius: 5px; background: #fff; cursor: pointer; }
+        .btn-op { background: #eee !important; font-weight: bold; }
         .btn-eq { background: var(--t1-dark) !important; color: white; }
-        .btn-clear { background: #fab1a0 !important; color: #c0392b; }
 
-        /* Übungskarten */
-        .exercise-card {
-            background-color: var(--t1-light); padding: 20px;
-            border-radius: 12px; margin-bottom: 15px;
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-        .exercise-card.dark { background-color: var(--t1-dark); }
-        
-        .formula-hint {
-            font-style: italic; font-size: 0.85em; color: var(--t1-text);
-            margin-bottom: 8px; display: block; font-weight: bold;
-        }
+        /* Tabellen & Karten */
+        .data-info { background: #fffde7; padding: 10px; border: 1px solid #fbc02d; border-radius: 8px; margin-bottom: 15px; font-weight: bold; text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; background: #fff; font-size: 0.85em; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f2f2f2; }
 
-        .input-group { display: flex; gap: 8px; align-items: center; }
-        input[type="number"] { padding: 8px; width: 90px; border: 1px solid #ccc; border-radius: 4px; }
-        
-        .check-btn {
-            padding: 8px 12px; background: var(--t1-text); color: white;
-            border: none; border-radius: 4px; cursor: pointer; font-size: 0.9em;
-        }
+        .exercise-card { background: var(--t1-light); padding: 15px; border-radius: 10px; margin-bottom: 10px; }
+        .exercise-card.dark { background: var(--t1-dark); }
+        .formula-hint { font-size: 0.8em; display: block; margin-bottom: 5px; font-weight: bold; color: var(--t1-text); }
+        .input-group { display: flex; gap: 10px; align-items: center; }
+        input { padding: 6px; width: 80px; border-radius: 4px; border: 1px solid #ccc; }
+        .check-btn { padding: 6px 12px; background: var(--t1-text); color: white; border: none; border-radius: 4px; cursor: pointer; }
 
         .stage-content { display: none; }
         .stage-content.active { display: block; }
-
-        @media (max-width: 900px) { .main-layout { flex-direction: column; } .calculator-sidebar { max-width: 100%; } }
+        
+        .refresh-btn { margin-bottom: 15px; padding: 8px 15px; background: #95a5a6; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.8em; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Übung: Bilanzkennzahlen</h1>
-        <a href="index.html" class="back-btn">← Übersicht</a>
-    </header>
+<header>
+    <h1>Übung: Bilanzkennzahlen</h1>
+    <a href="index.html" class="back-btn">← Übersicht</a>
+</header>
 
-    <div class="stage-selector">
-        <button id="btn-s1" class="stage-btn active" onclick="showStage(1)">Stufe 1: Mit Formeln</button>
-        <button id="btn-s2" class="stage-btn" onclick="showStage(2)">Stufe 2: Ohne Formeln</button>
-    </div>
+<div class="stage-selector">
+    <button id="btn-s1" class="stage-btn active" onclick="showStage(1)">Stufe 1: Training</button>
+    <button id="btn-s2" class="stage-btn" onclick="showStage(2)">Stufe 2: Prüfung</button>
+</div>
 
-    <div class="main-layout">
-        <div class="content-area">
-            <table style="width:100%; border-collapse:collapse; margin-bottom:25px; border:1px solid #ddd; background:#fff; font-size: 0.9em;">
-                <tr style="background:#f2f2f2;">
-                    <th style="padding:10px; border:1px solid #ddd;">Aktiva (Aktuelles Jahr)</th><th style="padding:10px; border:1px solid #ddd;">T€</th>
-                    <th style="padding:10px; border:1px solid #ddd;">Passiva (Aktuelles Jahr)</th><th style="padding:10px; border:1px solid #ddd;">T€</th>
-                </tr>
-                <tr><td>Anlagevermögen (AV)</td><td>3.840</td><td>Eigenkapital (EK)</td><td>3.820</td></tr>
-                <tr><td>Umlaufvermögen (UV)</td><td>4.160</td><td>Langfristiges FK</td><td>3.280</td></tr>
-                <tr><td><i>davon Flüssige Mittel</i></td><td><i>560</i></td><td>Kurzfristiges FK</td><td>900</td></tr>
-                <tr style="font-weight:bold; background: #fafafa;"><td>Gesamtvermögen (GV)</td><td>8.000</td><td>Gesamtkapital (GK)</td><td>8.000</td></tr>
-            </table>
+<button class="refresh-btn" onclick="initExercises()">↻ Neue Aufgaben aus Pool laden</button>
 
-            <div id="stage1" class="stage-content active"></div>
-            <div id="stage2" class="stage-content"></div>
+<div class="main-layout">
+    <div class="content-area">
+        <div id="stage1" class="stage-content active">
+            <div class="data-info" id="info-s1">Szenario: MediaWorld e.K.</div>
+            <div id="table-s1"></div>
+            <div id="tasks-s1"></div>
         </div>
 
-        <div class="calculator-sidebar">
-            <h4 style="margin:0 0 10px 0; color:var(--t1-text);">Rechner</h4>
-            <input type="text" id="calc-display" readonly>
-            <div class="calc-grid">
-                <button class="btn-op" onclick="add('(')">(</button><button class="btn-op" onclick="add(')')">)</button><button class="btn-clear" onclick="clr()">C</button><button class="btn-op" onclick="del()">⌫</button>
-                <button onclick="add('7')">7</button><button onclick="add('8')">8</button><button onclick="add('9')">9</button><button class="btn-op" onclick="add('/')">/</button>
-                <button onclick="add('4')">4</button><button onclick="add('5')">5</button><button onclick="add('6')">6</button><button class="btn-op" onclick="add('*')">*</button>
-                <button onclick="add('1')">1</button><button onclick="add('2')">2</button><button onclick="add('3')">3</button><button class="btn-op" onclick="add('-')">-</button>
-                <button onclick="add('0')">0</button><button onclick="add('.')">.</button><button class="btn-eq" onclick="solve()" style="grid-column: span 2;">=</button>
-            </div>
+        <div id="stage2" class="stage-content">
+            <div class="data-info" id="info-s2">Szenario: Tech-Solutions GmbH</div>
+            <div id="table-s2"></div>
+            <div id="tasks-s2"></div>
         </div>
     </div>
 
-    <script>
-        const kennzahlen = [
-            { name: "Anlageintensität", formula: "(Anlagevermögen / Gesamtvermögen) * 100", correct: 48.0 },
-            { name: "Umlaufintensität", formula: "(Umlaufvermögen / Gesamtvermögen) * 100", correct: 52.0 },
-            { name: "Eigenkapitalquote", formula: "(Eigenkapital / Gesamtkapital) * 100", correct: 47.8 },
-            { name: "Fremdkapitalquote", formula: "(Fremdkapital / Gesamtkapital) * 100", correct: 52.3 },
-            { name: "Anlagendeckung I", formula: "(Eigenkapital / Anlagevermögen) * 100", correct: 99.5 },
-            { name: "Liquidität 1. Grades", formula: "(Flüssige Mittel / kurzfristiges FK) * 100", correct: 62.2 }
-        ];
+    <div class="calculator-sidebar">
+        <input type="text" id="calc-display" readonly>
+        <div class="calc-grid">
+            <button class="btn-op" onclick="add('(')">(</button><button class="btn-op" onclick="add(')')">)</button><button onclick="clr()" style="color:red">C</button><button onclick="del()">⌫</button>
+            <button onclick="add('7')">7</button><button onclick="add('8')">8</button><button onclick="add('9')">9</button><button class="btn-op" onclick="add('/')">/</button>
+            <button onclick="add('4')">4</button><button onclick="add('5')">5</button><button onclick="add('6')">6</button><button class="btn-op" onclick="add('*')">*</button>
+            <button onclick="add('1')">1</button><button onclick="add('2')">2</button><button onclick="add('3')">3</button><button class="btn-op" onclick="add('-')">-</button>
+            <button onclick="add('0')">0</button><button onclick="add('.')">.</button><button class="btn-eq" onclick="solve()" style="grid-column: span 2;">=</button>
+        </div>
+    </div>
+</div>
 
-        function renderExercises() {
-            const s1 = document.getElementById('stage1');
-            const s2 = document.getElementById('stage2');
-            
-            kennzahlen.forEach((k, i) => {
-                const card = (showFormula) => `
-                    <div class="exercise-card ${i % 2 !== 0 ? 'dark' : ''}">
-                        <h3>${k.name}</h3>
-                        ${showFormula ? `<span class="formula-hint">Formel: ${k.formula}</span>` : ''}
-                        <div class="input-group">
-                            <input type="number" step="0.1" id="in_${showFormula ? 's1' : 's2'}_${i}"> %
-                            <button class="check-btn" onclick="check('in_${showFormula ? 's1' : 's2'}_${i}', ${k.correct})">Prüfen</button>
-                        </div>
-                    </div>`;
-                s1.innerHTML += card(true);
-                s2.innerHTML += card(false);
-            });
-        }
+<script>
+    // Pool von 10 verschiedenen Bilanz-Datensätzen
+    const pool = [
+        { name: "MediaWorld e.K.", av: 3840, uv: 4160, fli: 560, ek: 3820, lfk: 3280, kfk: 900 },
+        { name: "Rad-Center GmbH", av: 1200, uv: 2800, fli: 350, ek: 1000, lfk: 1500, kfk: 1500 },
+        { name: "Pharma-Logistics", av: 8500, uv: 3500, fli: 900, ek: 6000, lfk: 4000, kfk: 2000 },
+        { name: "Bau-Union AG", av: 5200, uv: 1800, fli: 120, ek: 2100, lfk: 3000, kfk: 1900 },
+        { name: "Gastro-Service", av: 450, uv: 950, fli: 180, ek: 350, lfk: 450, kfk: 600 },
+        { name: "Software-Schmiede", av: 200, uv: 1800, fli: 1200, ek: 1400, lfk: 200, kfk: 400 },
+        { name: "Auto-Haus Meyer", av: 3000, uv: 7000, fli: 500, ek: 2500, lfk: 4500, kfk: 3000 },
+        { name: "Druckerei Erkelenz", av: 2800, uv: 1200, fli: 150, ek: 1200, lfk: 2000, kfk: 800 },
+        { name: "Modehaus West", av: 1500, uv: 4500, fli: 800, ek: 3000, lfk: 1000, kfk: 2000 },
+        { name: "Bio-Großhandel", av: 4000, uv: 6000, fli: 400, ek: 4000, lfk: 3500, kfk: 2500 }
+    ];
 
-        function showStage(stageNum) {
-            document.querySelectorAll('.stage-content').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.stage-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('stage' + stageNum).classList.add('active');
-            document.getElementById('btn-s' + stageNum).classList.add('active');
-        }
+    const kennzahlenDef = [
+        { n: "Anlageintensität", f: "(AV / GV) * 100", calc: (d) => (d.av / (d.av + d.uv)) * 100 },
+        { n: "Umlaufintensität", f: "(UV / GV) * 100", calc: (d) => (d.uv / (d.av + d.uv)) * 100 },
+        { n: "Eigenkapitalquote", f: "(EK / GK) * 100", calc: (d) => (d.ek / (d.ek + d.lfk + d.kfk)) * 100 },
+        { n: "Anlagendeckung I", f: "(EK / AV) * 100", calc: (d) => (d.ek / d.av) * 100 },
+        { n: "Liquidität 1. Grades", f: "(Flüssige Mittel / kurzfr. FK) * 100", calc: (d) => (d.fli / d.kfk) * 100 }
+    ];
 
-        function add(v) { document.getElementById('calc-display').value += v; }
-        function clr() { document.getElementById('calc-display').value = ''; }
-        function del() { let v = document.getElementById('calc-display').value; document.getElementById('calc-display').value = v.slice(0,-1); }
-        function solve() { try { document.getElementById('calc-display').value = eval(document.getElementById('calc-display').value).toFixed(2); } catch { document.getElementById('calc-display').value = 'Fehler'; } }
+    function createTable(data) {
+        return `<table>
+            <tr><th>Aktiva</th><th>T€</th><th>Passiva</th><th>T€</th></tr>
+            <tr><td>Anlagevermögen (AV)</td><td>${data.av}</td><td>Eigenkapital (EK)</td><td>${data.ek}</td></tr>
+            <tr><td>Umlaufvermögen (UV)</td><td>${data.uv}</td><td>Langfristiges FK</td><td>${data.lfk}</td></tr>
+            <tr><td>- davon Flüssig</td><td>${data.fli}</td><td>Kurzfristiges FK</td><td>${data.kfk}</td></tr>
+            <tr style="font-weight:bold; background:#eee;"><td>Gesamtvermögen (GV)</td><td>${data.av+data.uv}</td><td>Gesamtkapital (GK)</td><td>${data.ek+data.lfk+data.kfk}</td></tr>
+        </table>`;
+    }
 
-        function check(id, correct) {
-            let val = parseFloat(document.getElementById(id).value);
-            if(Math.abs(val - correct) < 0.2) { alert("Korrekt! " + val + "%"); }
-            else { alert("Leider falsch. Tipp: Achte auf die Nachkommastellen!"); }
-        }
+    function initExercises() {
+        // Zwei unterschiedliche Zufalls-Indices wählen
+        let idx1 = Math.floor(Math.random() * pool.length);
+        let idx2;
+        do { idx2 = Math.floor(Math.random() * pool.length); } while (idx1 === idx2);
 
-        renderExercises();
-    </script>
+        setupStage(1, pool[idx1]);
+        setupStage(2, pool[idx2]);
+    }
+
+    function setupStage(sNum, data) {
+        document.getElementById(`info-s${sNum}`).innerText = "Szenario: " + data.name;
+        document.getElementById(`table-s${sNum}`).innerHTML = createTable(data);
+        let tasksHtml = "";
+        kennzahlenDef.forEach((k, i) => {
+            let correct = k.calc(data).toFixed(1);
+            tasksHtml += `<div class="exercise-card ${i % 2 !== 0 ? 'dark' : ''}">
+                <h3>${k.n}</h3>
+                ${sNum === 1 ? `<span class="formula-hint">Formel: ${k.f}</span>` : ''}
+                <div class="input-group">
+                    <input type="number" step="0.1" id="in_s${sNum}_${i}"> %
+                    <button class="check-btn" onclick="checkAnswer('in_s${sNum}_${i}', ${correct})">Prüfen</button>
+                </div>
+            </div>`;
+        });
+        document.getElementById(`tasks-s${sNum}`).innerHTML = tasksHtml;
+    }
+
+    function showStage(num) {
+        document.querySelectorAll('.stage-content').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.stage-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('stage'+num).classList.add('active');
+        document.getElementById('btn-s'+num).classList.add('active');
+    }
+
+    function checkAnswer(id, correct) {
+        let val = parseFloat(document.getElementById(id).value);
+        if(Math.abs(val - correct) < 0.2) alert("Richtig! (" + correct + "%)");
+        else alert("Leider falsch. Berechne nochmal genau.");
+    }
+
+    // Rechner Logik
+    function add(v) { document.getElementById('calc-display').value += v; }
+    function clr() { document.getElementById('calc-display').value = ''; }
+    function del() { document.getElementById('calc-display').value = document.getElementById('calc-display').value.slice(0,-1); }
+    function solve() { try { document.getElementById('calc-display').value = eval(document.getElementById('calc-display').value).toFixed(2); } catch { document.getElementById('calc-display').value = 'Fehler'; } }
+
+    window.onload = initExercises;
+</script>
 </body>
 </html>
