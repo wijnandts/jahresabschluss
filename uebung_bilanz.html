@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kennzahlen-Training Pro</title>
+    <title>Kennzahlen-Training Komplett</title>
     <style>
         :root {
             --t1-light: #d6eaf8; --t1-dark: #85c1e9; --t1-text: #1b4f72;
@@ -39,8 +39,8 @@
         .exercise-card.dark { background: var(--t1-dark); }
         .exercise-card.pro { background: var(--t3-color); border: 1px solid var(--t3-dark); }
         
+        .formula-hint { font-size: 0.85em; display: block; margin-bottom: 8px; font-weight: bold; color: var(--t1-text); }
         .input-group { display: flex; gap: 10px; align-items: center; }
-        /* Text-Input für Formatierung */
         .kennzahl-input { padding: 8px; width: 130px; border-radius: 4px; border: 1px solid #ccc; text-align: right; font-weight: bold; }
         .check-btn { padding: 8px 15px; background: var(--t1-text); color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
         .btn-pro-check { background: var(--t3-dark); }
@@ -52,14 +52,14 @@
 <body>
 
 <header>
-    <h1>Kennzahlen-Prüfung</h1>
+    <h1>Bilanzanalyse: Alle Kennzahlen</h1>
     <a href="index.html" class="back-btn">← Übersicht</a>
 </header>
 
 <div class="stage-selector">
-    <button id="btn-s1" class="stage-btn active" onclick="showStage(1)">Stufe 1</button>
-    <button id="btn-s2" class="stage-btn" onclick="showStage(2)">Stufe 2</button>
-    <button id="btn-s3" class="stage-btn btn-pro" onclick="showStage(3)">Stufe 3 (Profi)</button>
+    <button id="btn-s1" class="stage-btn active" onclick="showStage(1)">Stufe 1 (mit Formel)</button>
+    <button id="btn-s2" class="stage-btn" onclick="showStage(2)">Stufe 2 (ohne Formel)</button>
+    <button id="btn-s3" class="stage-btn btn-pro" onclick="showStage(3)">Stufe 3 (Profi-Werte)</button>
 </div>
 
 <div class="main-layout">
@@ -70,7 +70,7 @@
     </div>
 
     <div class="calculator-sidebar">
-        <div style="font-size: 0.8em; color: #666; margin-bottom: 5px;">Wiss. Rechner</div>
+        <div style="font-size: 0.8em; color: #666; margin-bottom: 5px;">Rechner (Klammern beachten!)</div>
         <input type="text" id="calc-display" readonly>
         <div class="calc-grid">
             <button class="btn-op" onclick="add('(')">(</button><button class="btn-op" onclick="add(')')">)</button><button onclick="clr()" style="color:red">C</button><button onclick="del()">⌫</button>
@@ -83,28 +83,29 @@
 </div>
 
 <script>
-    // Formatierer für Währungen und Zahlen
     const numFmt = new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const euroFmt = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' });
 
-    // Hilfsfunktion: Tausenderpunkte während der Eingabe setzen
     function formatInput(el) {
-        let val = el.value.replace(/[^\d]/g, ""); // Alles außer Zahlen entfernen
+        let val = el.value.replace(/[^\d]/g, "");
         if (val === "") return;
-        let n = parseInt(val, 10) / 100; // Cent-Logik
+        let n = parseInt(val, 10) / 100;
         el.value = numFmt.format(n);
     }
 
     const pool = [
-        { name: "Szenario A", av: 4500750.00, uv: 1250250.50, fli: 450100.00, ek: 3200000.00, lfk: 1500000.00, kfk: 1051000.50 },
-        { name: "Szenario B", av: 1250000.00, uv: 3750000.00, fli: 850000.00, ek: 2000000.00, lfk: 2000000.00, kfk: 1000000.00 },
-        { name: "Szenario C (Profi)", av: 15892430.20, uv: 4120570.80, fli: 1105400.00, ek: 10200500.00, lfk: 6812501.00, kfk: 3000000.00 }
+        { name: "Basis-Szenario", av: 3840000, uv: 4160000, fli: 560000, ek: 3820000, lfk: 3280000, kfk: 900000 }, // Werte aus Bild 3
+        { name: "Handels GmbH", av: 2500000, uv: 7500000, fli: 1200000, ek: 4000000, lfk: 3000000, kfk: 3000000 },
+        { name: "Industrie Pro", av: 12458600.50, uv: 8742300.25, fli: 1245900, ek: 9856000, lfk: 7452000, kfk: 3892900.75 }
     ];
 
     const kennzahlenDef = [
-        { n: "Anlageintensität", calc: (d) => (d.av / (d.av + d.uv)) * 100 },
-        { n: "Eigenkapitalquote", calc: (d) => (d.ek / (d.ek + d.lfk + d.kfk)) * 100 },
-        { n: "Liquidität 1. Grades", calc: (d) => (d.fli / d.kfk) * 100 }
+        { n: "Anlageintensität", f: "(Anlagevermögen / Gesamtvermögen) * 100", calc: (d) => (d.av / (d.av + d.uv)) * 100 },
+        { n: "Umlaufintensität", f: "(Umlaufvermögen / Gesamtvermögen) * 100", calc: (d) => (d.uv / (d.av + d.uv)) * 100 },
+        { n: "Eigenkapitalquote", f: "(Eigenkapital / Gesamtkapital) * 100", calc: (d) => (d.ek / (d.ek + d.lfk + d.kfk)) * 100 },
+        { n: "Fremdkapitalquote", f: "(Fremdkapital / Gesamtkapital) * 100", calc: (d) => ((d.lfk + d.kfk) / (d.ek + d.lfk + d.kfk)) * 100 },
+        { n: "Anlagendeckung I", f: "(Eigenkapital / Anlagevermögen) * 100", calc: (d) => (d.ek / d.av) * 100 },
+        { n: "Liquidität 1. Grades", f: "(Flüssige Mittel / kurzfristiges FK) * 100", calc: (d) => (d.fli / d.kfk) * 100 }
     ];
 
     function createTable(data) {
@@ -124,6 +125,7 @@
             let correct = k.calc(data).toFixed(2);
             tasksHtml += `<div class="exercise-card ${sNum === 3 ? 'pro' : (i % 2 !== 0 ? 'dark' : '')}">
                 <h4>${k.n}</h4>
+                ${sNum === 1 ? `<span class="formula-hint">Formel: ${k.f}</span>` : ''}
                 <div class="input-group">
                     <input type="text" class="kennzahl-input" id="in_s${sNum}_${i}" oninput="formatInput(this)" placeholder="0,00"> %
                     <button class="check-btn ${sNum === 3 ? 'btn-pro-check' : ''}" onclick="check('in_s${sNum}_${i}', ${correct})">Prüfen</button>
@@ -136,8 +138,8 @@
     function check(id, correct) {
         let rawVal = document.getElementById(id).value.replace(/\./g, "").replace(",", ".");
         let val = parseFloat(rawVal);
-        if(Math.abs(val - correct) < 0.02) alert("Richtig! " + numFmt.format(correct) + "%");
-        else alert("Leider falsch. Berechne den Wert nochmal auf zwei Stellen genau.");
+        if(Math.abs(val - correct) < 0.1) alert("Richtig! Ergebnis: " + numFmt.format(correct) + "%");
+        else alert("Noch nicht korrekt. Tipp: Nutze den Rechner für das exakte Ergebnis!");
     }
 
     function showStage(num) {
@@ -147,7 +149,7 @@
         document.getElementById('btn-s'+num).classList.add('active');
     }
 
-    // Rechner Funktionen
+    // Rechner
     function add(v) { document.getElementById('calc-display').value += v; }
     function clr() { document.getElementById('calc-display').value = ''; }
     function del() { document.getElementById('calc-display').value = document.getElementById('calc-display').value.slice(0,-1); }
