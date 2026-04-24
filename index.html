@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lernportal - Bilanzanalyse</title>
+    <title>Lernmodule Bilanzanalyse</title>
     <style>
         :root {
-            /* Thema 1: Blau (Vermögen) */
+            /* Thema 1: Blau (Bilanz) */
             --t1-light: #d6eaf8;
             --t1-dark: #85c1e9;
             --t1-text: #1b4f72;
             
-            /* Thema 2: Grün (Kapital) */
+            /* Thema 2: Grün (Rentabilität) */
             --t2-light: #d5f5e3;
             --t2-dark: #82e0aa;
             --t2-text: #0e6251;
             
-            /* Thema 3: Gelb (Liquidität) */
+            /* Thema 3: Gelb (Umschlag) */
             --t3-light: #fcf3cf;
             --t3-dark: #f7dc6f;
             --t3-text: #7d6608;
@@ -27,21 +27,65 @@
             background-color: #ffffff;
             color: #333;
             margin: 0;
-            padding: 40px;
+            padding: 20px 40px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        h1 {
+        /* Header Bereich mit Titel und Kontakt oben rechts */
+        header {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
             margin-bottom: 50px;
-            color: #2c3e50;
-            font-weight: 300;
-            border-bottom: 3px solid #eee;
-            padding-bottom: 15px;
+            padding-top: 20px;
         }
 
-        /* Horizontale Ausrichtung der Themen-Blöcke */
+        h1 {
+            color: #2c3e50;
+            font-weight: 300;
+            margin: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .contact-icon {
+            position: absolute;
+            right: 0;
+            top: 10px;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .contact-icon:hover {
+            transform: scale(1.1);
+        }
+
+        /* CSS-Zeichnung eines Briefumschlags */
+        .envelope {
+            width: 45px;
+            height: 30px;
+            background: #2c3e50;
+            position: relative;
+            border-radius: 4px;
+        }
+
+        .envelope::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-left: 22.5px solid transparent;
+            border-right: 22.5px solid transparent;
+            border-top: 15px solid #ffffff;
+            opacity: 0.3;
+        }
+
+        /* Grid System */
         .main-grid {
             display: flex;
             flex-direction: row;
@@ -52,38 +96,39 @@
             max-width: 1000px;
         }
 
-        /* Vertikale Ausrichtung innerhalb eines Themas */
         .topic-column {
             display: flex;
             flex-direction: column;
             gap: 15px;
             flex: 1;
-            min-width: 250px;
+            min-width: 280px;
         }
 
         .topic-title {
             text-align: center;
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             color: #555;
             text-transform: uppercase;
             font-size: 0.9em;
+            letter-spacing: 1px;
         }
 
         .tile {
-            padding: 40px 20px;
+            padding: 45px 20px;
             text-align: center;
             text-decoration: none;
             border-radius: 12px;
             font-weight: 600;
+            font-size: 1.1em;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            border: 1px solid rgba(0,0,0,0.03);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.02);
         }
 
         .tile:hover {
-            transform: scale(1.03);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
 
         /* Farbschemata */
@@ -95,52 +140,38 @@
         
         .t3-light { background-color: var(--t3-light); color: var(--t3-text); }
         .t3-dark  { background-color: var(--t3-dark);  color: var(--t3-text); }
-
-        .contact-btn {
-            margin-top: 60px;
-            padding: 18px 45px;
-            background-color: #2c3e50;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: background 0.3s;
-        }
-
-        .contact-btn:hover {
-            background-color: #34495e;
-        }
     </style>
 </head>
 <body>
 
-    <h1>Lernmodule Bilanzanalyse</h1>
+    <header>
+        <h1>Lernmodule Bilanzanalyse</h1>
+        <a href="mailto:wijnandts@bk-erkelenz.de?subject=Anfrage%20Lernmodule" class="contact-icon" title="Kontakt">
+            <div class="envelope"></div>
+        </a>
+    </header>
 
     <div class="main-grid">
         
         <div class="topic-column">
-            <div class="topic-title">Vermögensstruktur</div>
-            <a href="erklaerung_vermoegen.html" class="tile t1-light">Erklärung</a>
-            <a href="uebung_vermoegen.html" class="tile t1-dark">Übung</a>
+            <div class="topic-title">Bilanzkennzahlen</div>
+            <a href="erklaerung_bilanz.html" class="tile t1-light">Erklärung</a>
+            <a href="uebung_bilanz.html" class="tile t1-dark">Übung</a>
         </div>
 
         <div class="topic-column">
-            <div class="topic-title">Kapitalstruktur</div>
-            <a href="erklaerung_kapital.html" class="tile t2-light">Erklärung</a>
-            <a href="uebung_kapital.html" class="tile t2-dark">Übung</a>
+            <div class="topic-title">Rentabilitätskennzahlen</div>
+            <a href="erklaerung_rentabilitaet.html" class="tile t2-light">Erklärung</a>
+            <a href="uebung_rentabilitaet.html" class="tile t2-dark">Übung</a>
         </div>
 
         <div class="topic-column">
-            <div class="topic-title">Liquidität</div>
-            <a href="erklaerung_liquiditaet.html" class="tile t3-light">Erklärung</a>
-            <a href="uebung_liquiditaet.html" class="tile t3-dark">Übung</a>
+            <div class="topic-title">Umschlagskennzahlen</div>
+            <a href="erklaerung_umschlag.html" class="tile t3-light">Erklärung</a>
+            <a href="uebung_umschlag.html" class="tile t3-dark">Übung</a>
         </div>
 
     </div>
-
-    <a href="mailto:wijnandts@bk-erkelenz.de?subject=Frage%20zu%20den%20Lernmodulen" class="contact-btn">
-        Dozent kontaktieren
-    </a>
 
 </body>
 </html>
