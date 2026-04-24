@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Erklärung: Rentabilitätskennzahlen</title>
+    <title>Erklärung: Rentabilität</title>
     <style>
         :root { --t-light: #d5f5e3; --t-text: #0e6251; }
         body { font-family: 'Segoe UI', sans-serif; background: #fff; color: #333; line-height: 1.6; padding: 20px; display: flex; flex-direction: column; align-items: center; }
@@ -12,24 +12,35 @@
         h1 { color: var(--t-text); margin: 0; }
         .section { background: #f9f9f9; padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid var(--t-text); }
         .formula { background: #fff; padding: 15px; border: 1px dashed var(--t-text); border-radius: 8px; font-family: 'Courier New', monospace; font-weight: bold; margin: 10px 0; text-align: center; }
+        .analysis { background: #fff; padding: 10px; border-radius: 8px; margin-top: 10px; border-left: 3px solid #27ae60; font-size: 0.95em; }
     </style>
 </head>
 <body>
     <div class="container">
-        <header><h1>Erfolgskontrolle & Rentabilität</h1><a href="index.html" class="back-btn">← Übersicht</a></header>
+        <header><h1>Rentabilitätsanalyse: Erfolgskennzahlen</h1><a href="index.html" class="back-btn">← Übersicht</a></header>
 
         <div class="section">
-            <h2>Durchschnittliche Kapitalbasis</h2>
-            <p>Für eine korrekte Analyse wird der Gewinn auf das im Jahresverlauf durchschnittlich verfügbare Kapital bezogen.</p>
-            <div class="formula">ø Eigenkapital = (EK Anfang + EK Ende) / 2</div>
-            <div class="formula">ø Gesamtkapital = (GK Anfang + GK Ende) / 2</div>
+            <h2>Eigenkapitalrentabilität</h2>
+            <div class="formula">EK-Rentabilität = (Gewinn / ø Eigenkapital) * 100</div>
+            <div class="analysis">
+                <strong>Aussage & Zweck:</strong> Zeigt die Verzinsung des Kapitals der Unternehmenseigner. Sie wird genutzt, um die Investition in das Unternehmen mit anderen Geldanlagen (z. B. Aktien oder Zinsprodukten) zu vergleichen.
+            </div>
         </div>
 
         <div class="section">
-            <h2>Die Rentabilitäten</h2>
-            <div class="formula">Eigenkapitalrentabilität = (Gewinn / ø Eigenkapital) * 100</div>
-            <div class="formula">Gesamtkapitalrentabilität = ((Gewinn + Zinsen) / ø Gesamtkapital) * 100</div>
+            <h2>Gesamtkapitalrentabilität</h2>
+            <div class="formula">GK-Rentabilität = ((Gewinn + Zinsen) / ø Gesamtkapital) * 100</div>
+            <div class="analysis">
+                <strong>Aussage & Zweck:</strong> Misst die Effizienz des gesamten im Unternehmen arbeitenden Kapitals, unabhängig von der Herkunft (Eigen- oder Fremdkapital). Sie zeigt die wahre Ertragskraft der betrieblichen Tätigkeit.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Umsatzrentabilität</h2>
             <div class="formula">Umsatzrentabilität = (Gewinn / Umsatzerlöse) * 100</div>
+            <div class="analysis">
+                <strong>Aussage & Zweck:</strong> Gibt an, wie viel Gewinn ein Unternehmen mit jedem Euro Umsatz erwirtschaftet. Sie ist ein wichtiger Indikator für die Preisgestaltung und das Kostenmanagement. Sinkt sie bei gleichbleibendem Umsatz, sind meist die Kosten zu stark gestiegen.
+            </div>
         </div>
     </div>
 </body>
