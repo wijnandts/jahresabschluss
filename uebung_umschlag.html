@@ -2,37 +2,37 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Übung: Bilanzkennzahlen - Komplettanalyse</title>
+    <title>Übung: Kapitalumschlagshäufigkeit</title>
     <style>
-        :root { --t-light: #d6eaf8; --t-dark: #85c1e9; --t-text: #1b4f72; --t3-color: #fce4ec; --t3-dark: #f06292; --bg-calc: #f8f9fa; }
+        :root { --t-light: #fcf3cf; --t-dark: #f7dc6f; --t-text: #7d6608; --t3-color: #fce4ec; --t3-dark: #f06292; --bg-calc: #f8f9fa; }
         body { font-family: 'Segoe UI', sans-serif; padding: 20px; display: flex; flex-direction: column; align-items: center; background: #fff; }
         header { width: 100%; max-width: 1100px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px; }
         .stage-selector { display: flex; gap: 10px; margin-bottom: 20px; }
         .stage-btn { padding: 10px 18px; border: 2px solid var(--t-text); background: white; border-radius: 25px; cursor: pointer; font-weight: bold; }
         .stage-btn.active { background: var(--t-text); color: white; }
         .btn-pro.active { background: var(--t3-dark); border-color: var(--t3-dark); }
-        .main-layout { display: flex; gap: 30px; width: 100%; max-width: 1100px; align-items: flex-start; }
+        .main-layout { display: flex; gap: 30px; width: 100%; max-width: 1100px; }
         .content-area { flex: 2; }
         .calculator-sidebar { flex: 1; max-width: 300px; background: var(--bg-calc); padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: sticky; top: 20px; }
         #calc-display { width: 100%; height: 50px; background: #fff; border: 1px solid #ccc; border-radius: 5px; text-align: right; padding: 10px; font-size: 1.1em; margin-bottom: 10px; box-sizing: border-box; }
         .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
         .calc-grid button { padding: 12px; border: 1px solid #ddd; border-radius: 5px; background: #fff; cursor: pointer; font-weight: bold; }
         .btn-op { background: #eee !important; }
-        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 0.85em; background: #fff; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 0.9em; background: #fff; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
         th { background: #f2f2f2; }
-        .exercise-card { background: var(--t-light); padding: 15px; border-radius: 10px; margin-bottom: 10px; }
+        .exercise-card { background: var(--t-light); padding: 20px; border-radius: 10px; margin-bottom: 10px; }
         .exercise-card.dark { background: var(--t-dark); }
         .exercise-card.pro { background: var(--t3-color); border: 1px solid var(--t3-dark); }
         .input-group { display: flex; gap: 10px; align-items: center; }
-        .kennzahl-input { padding: 8px; width: 140px; text-align: right; font-weight: bold; border: 1px solid #ccc; border-radius: 4px; }
+        .kennzahl-input { padding: 8px; width: 150px; text-align: right; font-weight: bold; border: 1px solid #ccc; border-radius: 4px; }
         .check-btn { padding: 8px 15px; background: var(--t-text); color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
         .stage-content { display: none; }
         .stage-content.active { display: block; }
     </style>
 </head>
 <body>
-    <header><h1>Bilanzkennzahlen: Vollanalyse</h1><a href="index.html" style="text-decoration:none; color:var(--t-text); font-weight:bold;">← Übersicht</a></header>
+    <header><h1>Kapitalumschlagshäufigkeit</h1><a href="index.html" style="text-decoration:none; color:var(--t-text); font-weight:bold;">← Übersicht</a></header>
     
     <div class="stage-selector">
         <button id="btn-s1" class="stage-btn active" onclick="showStage(1)">Stufe 1</button>
@@ -54,7 +54,7 @@
                 <button onclick="add('7')">7</button><button onclick="add('8')">8</button><button onclick="add('9')">9</button><button class="btn-op" onclick="add('/')">/</button>
                 <button onclick="add('4')">4</button><button onclick="add('5')">5</button><button onclick="add('6')">6</button><button class="btn-op" onclick="add('*')">*</button>
                 <button onclick="add('1')">1</button><button onclick="add('2')">2</button><button onclick="add('3')">3</button><button class="btn-op" onclick="add('-')">-</button>
-                <button onclick="add('0')">0</button><button onclick="add('.')">,</button><button class="btn-op" onclick="add('+')">+</button><button onclick="solve()" style="background:var(--t-dark)!important; color:white;">=</button>
+                <button onclick="add('0')">0</button><button onclick="add('.')">,</button><button class="btn-op" onclick="add('+')">+</button><button onclick="solve()" style="background:var(--t-dark)!important;">=</button>
             </div>
         </div>
     </div>
@@ -70,54 +70,32 @@
         }
         
         const pool = [
-            { name: "Basis (Bild 3)", av: 3840000, uv: 4160000, fli: 560000, for: 1800000, ek: 3820000, lfk: 3280000, kfk: 900000 },
-            { name: "Mittelstand GmbH", av: 2500000, uv: 3500000, fli: 400000, for: 1200000, ek: 2200000, lfk: 1800000, kfk: 2000000 },
-            { name: "Industrie Pro", av: 15892430.50, uv: 12107569.50, fli: 1105400, for: 4800000, ek: 12200500, lfk: 9800000, kfk: 6000000 }
+            { name: "Handelsbetrieb Alpha", umsatz: 12000000, ek_anfang: 2800000, ek_ende: 3200000, gk_anfang: 5800000, gk_ende: 6200000 },
+            { name: "Logistik GmbH", umsatz: 8500000, ek_anfang: 1900000, ek_ende: 2100000, gk_anfang: 4100000, gk_ende: 4400000 },
+            { name: "Industrie-AG (Profi)", umsatz: 45890200.50, ek_anfang: 10250400, ek_ende: 12450800.50, gk_anfang: 25480900, gk_ende: 28940500.20 }
         ];
 
         const defs = [
-            { n: "Anlageintensität", f: "(AV / Gesamtvermögen) * 100", calc: (d) => (d.av / (d.av + d.uv)) * 100 },
-            { n: "Umlaufintensität", f: "(UV / Gesamtvermögen) * 100", calc: (d) => (d.uv / (d.av + d.uv)) * 100 },
-            { n: "Eigenkapitalquote", f: "(EK / Gesamtkapital) * 100", calc: (d) => (d.ek / (d.ek + d.lfk + d.kfk)) * 100 },
-            { n: "Fremdkapitalquote", f: "(Fremdkapital / Gesamtkapital) * 100", calc: (d) => ((d.lfk + d.kfk) / (d.ek + d.lfk + d.kfk)) * 100 },
-            { n: "Anlagendeckung I", f: "(EK / AV) * 100", calc: (d) => (d.ek / d.av) * 100 },
-            { n: "Anlagendeckung II", f: "((EK + langfr. FK) / AV) * 100", calc: (d) => ((d.ek + d.lfk) / d.av) * 100 },
-            { n: "Liquidität 1. Grades", f: "(Flüssige Mittel / kurzfr. FK) * 100", calc: (d) => (d.fli / d.kfk) * 100 },
-            { n: "Liquidität 2. Grades", f: "((Flüssige M. + Forderungen) / kurzfr. FK) * 100", calc: (d) => ((d.fli + d.for) / d.kfk) * 100 }
+            { n: "ø Eigenkapital", f: "(EK Anfang + EK Ende) / 2", calc: (d) => (d.ek_anfang + d.ek_ende) / 2, unit: "€" },
+            { n: "ø Gesamtkapital", f: "(GK Anfang + GK Ende) / 2", calc: (d) => (d.gk_anfang + d.gk_ende) / 2, unit: "€" },
+            { n: "Eigenkapitalumschlagshäufigkeit", f: "Umsatzerlöse / ø Eigenkapital", calc: (d) => d.umsatz / ((d.ek_anfang + d.ek_ende) / 2), unit: "mal" },
+            { n: "Gesamtkapitalumschlagshäufigkeit", f: "Umsatzerlöse / ø Gesamtkapital", calc: (d) => d.umsatz / ((d.gk_anfang + d.gk_ende) / 2), unit: "mal" }
         ];
 
         function setup(s, d) {
-            document.getElementById(`table-s${s}`).innerHTML = `
-                <h3>${d.name}</h3>
-                <table>
-                    <tr><th>Aktiva</th><th>Betrag</th><th>Passiva</th><th>Betrag</th></tr>
-                    <tr><td>Anlagevermögen (AV)</td><td>${euroFmt.format(d.av)}</td><td>Eigenkapital (EK)</td><td>${euroFmt.format(d.ek)}</td></tr>
-                    <tr><td>Umlaufvermögen (UV)</td><td>${euroFmt.format(d.uv)}</td><td>Langfristiges FK</td><td>${euroFmt.format(d.lfk)}</td></tr>
-                    <tr><td><i>- davon Forderungen</i></td><td><i>${euroFmt.format(d.for)}</i></td><td>Kurzfristiges FK</td><td>${euroFmt.format(d.kfk)}</td></tr>
-                    <tr><td><i>- davon Flüssig</i></td><td><i>${euroFmt.format(d.fli)}</i></td><td></td><td></td></tr>
-                    <tr style="font-weight:bold; background:#eee;"><td>Gesamtvermögen</td><td>${euroFmt.format(d.av+d.uv)}</td><td>Gesamtkapital</td><td>${euroFmt.format(d.ek+d.lfk+d.kfk)}</td></tr>
-                </table>`;
-            
+            document.getElementById(`table-s${s}`).innerHTML = `<h3>${d.name}</h3><table><tr><th>Posten</th><th>Anfangsbestand</th><th>Endbestand</th></tr><tr><td>Eigenkapital</td><td>${euroFmt.format(d.ek_anfang)}</td><td>${euroFmt.format(d.ek_ende)}</td></tr><tr><td>Gesamtkapital</td><td>${euroFmt.format(d.gk_anfang)}</td><td>${euroFmt.format(d.gk_ende)}</td></tr><tr><td colspan="2">Umsatzerlöse (jährlich)</td><td>${euroFmt.format(d.umsatz)}</td></tr></table>`;
             let h = ""; 
             defs.forEach((k, i) => { 
                 let c = k.calc(d).toFixed(2); 
-                h += `<div class="exercise-card ${s===3?'pro':(i%2?'dark':'')}">
-                        <h4>${k.n}</h4>
-                        ${s===1?`<small><b>Formel:</b> ${k.f}</small><br>`:''}
-                        <div class="input-group">
-                            <input type="text" class="kennzahl-input" id="i${s}_${i}" oninput="formatInput(this)" placeholder="0,00"> % 
-                            <button class="check-btn" onclick="check('i${s}_${i}', ${c})">Prüfen</button>
-                        </div>
-                      </div>`; 
+                h += `<div class="exercise-card ${s===3?'pro':(i%2?'dark':'')}"><h4>${k.n}</h4>${s===1?`<small><b>Formel:</b> ${k.f}</small><br>`:''}<div class="input-group"><input type="text" class="kennzahl-input" id="i${s}_${i}" oninput="formatInput(this)" placeholder="0,00"> ${k.unit} <button class="check-btn" onclick="check('i${s}_${i}', ${c})">Prüfen</button></div></div>`; 
             });
             document.getElementById(`tasks-s${s}`).innerHTML = h;
         }
 
         function check(id, c) { 
-            let valStr = document.getElementById(id).value.replace(/\./g, "").replace(",", ".");
-            let v = parseFloat(valStr); 
-            if(Math.abs(v - c) < 0.1) alert("Hervorragend! Das Ergebnis ist korrekt."); 
-            else alert("Leider falsch. Berechne den Wert nochmal auf zwei Stellen genau."); 
+            let v = parseFloat(document.getElementById(id).value.replace(/\./g, "").replace(",", ".")); 
+            if(Math.abs(v - c) < 0.1) alert("Richtig!"); 
+            else alert("Leider falsch. Korrekt wäre: " + numFmt.format(c)); 
         }
 
         function showStage(n) { 
