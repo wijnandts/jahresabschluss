@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Erklärung: Bilanzkennzahlen</title>
+    <title>Erklärung: Bilanzkennzahlen - Vollständige Analyse</title>
     <style>
         :root { --t-light: #d6eaf8; --t-text: #1b4f72; }
         body { font-family: 'Segoe UI', sans-serif; background: #fff; color: #333; line-height: 1.6; padding: 20px; display: flex; flex-direction: column; align-items: center; }
@@ -13,19 +13,19 @@
         .section { background: #f9f9f9; padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid var(--t-text); }
         .formula { background: #fff; padding: 15px; border: 1px dashed var(--t-text); border-radius: 8px; font-family: 'Courier New', monospace; font-weight: bold; margin: 10px 0; text-align: center; }
         .analysis { background: #fff; padding: 10px; border-radius: 8px; margin-top: 10px; border-left: 3px solid #3498db; font-size: 0.95em; }
-        h3 { color: var(--t-text); margin-top: 0; }
+        h3 { color: var(--t-text); margin-top: 0; margin-bottom: 5px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <header><h1>Finanzwirtschaftliche Analyse</h1><a href="index.html" class="back-btn">← Übersicht</a></header>
+        <header><h1>Finanzwirtschaftliche Bilanzanalyse</h1><a href="index.html" class="back-btn">← Übersicht</a></header>
 
         <div class="section">
             <h3>Anlage- und Umlaufintensität</h3>
             <div class="formula">Anlageintensität = (Anlagevermögen / Gesamtvermögen) * 100</div>
             <div class="formula">Umlaufintensität = (Umlaufvermögen / Gesamtvermögen) * 100</div>
             <div class="analysis">
-                <strong>Aussage & Zweck:</strong> Diese Kennzahlen beschreiben die Zusammensetzung des Vermögens. Eine hohe Anlageintensität (z. B. viele Maschinen) führt zu hohen fixen Kosten (Abschreibungen). Das Unternehmen ist dann weniger flexibel. Eine hohe Umlaufintensität deutet auf ein hohes Warenlager oder viele Kundenforderungen hin, was die Liquidität binden kann.
+                <strong>Aussage & Zweck:</strong> Diese Kennzahlen zeigen die Zusammensetzung Ihres Vermögens. Eine hohe Anlageintensität deutet auf einen hohen Fixkostenblock (Abschreibungen) hin, was das Unternehmen bei Krisen unbeweglicher macht. Eine hohe Umlaufintensität hingegen deutet auf eine höhere Flexibilität hin, sofern die Vorräte schnell verkauft werden können.
             </div>
         </div>
 
@@ -34,25 +34,26 @@
             <div class="formula">Eigenkapitalquote = (Eigenkapital / Gesamtkapital) * 100</div>
             <div class="formula">Fremdkapitalquote = (Fremdkapital / Gesamtkapital) * 100</div>
             <div class="analysis">
-                <strong>Aussage & Zweck:</strong> Sie messen die finanzielle Stabilität. Eine hohe Eigenkapitalquote macht das Unternehmen krisenfest und unabhängig von Banken. Die Fremdkapitalquote zeigt hingegen die Belastung durch Schulden und den damit verbundenen Zinsdruck.
+                <strong>Aussage & Zweck:</strong> Sie messen die finanzielle Unabhängigkeit. Eine hohe Eigenkapitalquote sorgt für Sicherheit und ein besseres Banken-Rating. Die Fremdkapitalquote zeigt Ihnen, wie stark Sie von externen Geldgebern abhängig sind und wie hoch die Belastung durch Zinsen und Tilgung ist.
             </div>
         </div>
 
         <div class="section">
             <h3>Anlagendeckung I und II</h3>
             <div class="formula">Deckung I = (Eigenkapital / Anlagevermögen) * 100</div>
-            <div class="formula">Deckung II = ((EK + langfr. FK) / Anlagevermögen) * 100</div>
+            <div class="formula">Deckung II = ((EK + langfr. Fremdkapital) / Anlagevermögen) * 100</div>
             <div class="analysis">
-                <strong>Aussage & Zweck:</strong> Hier prüfen Sie die "Goldene Bilanzregel". Langfristiges Vermögen (Gebäude) sollte langfristig finanziert sein. Während Deckung I nur das Eigenkapital prüft, erlaubt Deckung II auch langfristige Darlehen. Ein Wert unter 100 % bei Deckung II ist kritisch, da langfristiges Vermögen kurzfristig zurückgezahlt werden müsste.
+                <strong>Aussage & Zweck:</strong> Sie prüfen die Fristenkongruenz. Die Deckung II (Silberne Bilanzregel) besagt, dass langfristiges Vermögen auch langfristig finanziert sein muss. Ein Wert unter 100 % ist riskant, da Sie Teile Ihres Anlagevermögens mit kurzfristigen Geldern finanzieren, die jederzeit zurückgefordert werden könnten.
             </div>
         </div>
 
         <div class="section">
-            <h3>Liquidität 1. und 2. Grades</h3>
-            <div class="formula">Liq. 1. Grades = (Flüssige Mittel / kurzfr. FK) * 100</div>
-            <div class="formula">Liq. 2. Grades = ((Flüssige Mittel + Forderungen) / kurzfr. FK) * 100</div>
+            <h3>Liquidität 1., 2. und 3. Grades</h3>
+            <div class="formula">Liq. 1. Grades = (Flüssige Mittel / kurzfr. Fremdkapital) * 100</div>
+            <div class="formula">Liq. 2. Grades = ((Flüssige Mittel + Forderungen) / kurzfr. Fremdkapital) * 100</div>
+            <div class="formula">Liq. 3. Grades = (Umlaufvermögen / kurzfr. Fremdkapital) * 100</div>
             <div class="analysis">
-                <strong>Aussage & Zweck:</strong> Können Sie Ihre kurzfristigen Schulden bezahlen? Grad 1 zeigt, was Sie sofort bar/per Bank zahlen können. Grad 2 ist praxisnäher, da er Forderungen (Geld, das Sie bald von Kunden erhalten) einbezieht. Zielwert für Grad 2 ist ca. 100 %.
+                <strong>Aussage & Zweck:</strong> Diese Kennzahlen sichern Ihre Zahlungsfähigkeit. Während Grad 1 nur die Barreserven prüft, bezieht Grad 2 die kurzfristigen Kundenzahlungen mit ein (Zielwert: 100 %). Grad 3 zeigt Ihnen, ob das gesamte Umlaufvermögen ausreicht, um die kurzfristigen Schulden zu decken (Zielwert: > 200 %).
             </div>
         </div>
     </div>
