@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Erklärung: Rentabilität</title>
+    <style>
+        :root { --t-light: #d5f5e3; --t-text: #0e6251; }
+        body { font-family: 'Segoe UI', sans-serif; background: #fff; color: #333; line-height: 1.6; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .container { max-width: 800px; width: 100%; }
+        header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 30px; }
+        .back-btn { text-decoration: none; color: var(--t-text); font-weight: bold; }
+        h1 { color: var(--t-text); margin: 0; }
+        .section { background: #f9f9f9; padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid var(--t-text); }
+        .formula { background: #fff; padding: 15px; border: 1px dashed var(--t-text); border-radius: 8px; font-family: 'Courier New', monospace; font-weight: bold; margin: 10px 0; text-align: center; }
+        .example { background: var(--t-light); padding: 15px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header><h1>Erfolg messen (Rentabilität)</h1><a href="index.html" class="back-btn">← Übersicht</a></header>
+
+        <div class="section">
+            <h2>Durchschnittliches Kapital</h2>
+            <p>Bevor man die Rentabilität rechnet, braucht man den Durchschnitt des Kapitals im Jahr.</p>
+            <div class="formula">ø Kapital = (Bestand 01.01. + Bestand 31.12.) / 2</div>
+        </div>
+
+        <div class="section">
+            <h2>Eigenkapitalrentabilität</h2>
+            <p>Wie gut hat sich mein eigenes Geld im Unternehmen verzinst?</p>
+            <div class="formula">EK-Rent. = (Gewinn / ø Eigenkapital) * 100</div>
+            <div class="example">
+                <strong>Beispiel:</strong> 10.000 € Gewinn bei 100.000 € ø EK. <br>
+                <span style="font-weight:bold; color:#27ae60;">Ergebnis:</span> 10,00 % Verzinsung.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Umsatzrentabilität</h2>
+            <p>Wie viel Gewinn mache ich pro verkauftem Euro? (Effizienz des Verkaufs)</p>
+            <div class="formula">Umsatzrent. = (Gewinn / Umsatzerlöse) * 100</div>
+        </div>
+    </div>
+</body>
+</html>
