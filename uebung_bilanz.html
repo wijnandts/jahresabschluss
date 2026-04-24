@@ -38,6 +38,29 @@
 
         .back-btn { text-decoration: none; color: var(--t1-text); font-weight: bold; }
 
+        /* Stufen-Umschalter */
+        .stage-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .stage-btn {
+            padding: 12px 25px;
+            border: 2px solid var(--t1-text);
+            background: white;
+            color: var(--t1-text);
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .stage-btn.active {
+            background: var(--t1-text);
+            color: white;
+        }
+
         .main-layout {
             display: flex;
             flex-direction: row;
@@ -76,15 +99,11 @@
         .btn-eq { background: var(--t1-dark) !important; color: white; }
         .btn-clear { background: #fab1a0 !important; color: #c0392b; }
 
-        /* Stufen-Logik */
-        .stage-header {
-            background: #2c3e50; color: white; padding: 10px 20px;
-            border-radius: 8px; margin: 30px 0 15px 0; font-size: 1.1em;
-        }
-
+        /* Übungskarten */
         .exercise-card {
-            background-color: var(--t1-light); padding: 20px;
+            background-color: var(--t1-light); padding: 25px;
             border-radius: 12px; margin-bottom: 15px;
+            border: 1px solid rgba(0,0,0,0.05);
         }
         .exercise-card.dark { background-color: var(--t1-dark); }
         
@@ -101,6 +120,12 @@
             border: none; border-radius: 4px; cursor: pointer;
         }
 
+        /* Sichtbarkeit der Stufen */
+        .stage-content { display: none; }
+        .stage-content.active { display: block; animation: fadeIn 0.5s; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
         @media (max-width: 900px) { .main-layout { flex-direction: column; } }
     </style>
 </head>
@@ -111,59 +136,64 @@
         <a href="index.html" class="back-btn">← Übersicht</a>
     </header>
 
+    <div class="stage-selector">
+        <button id="btn-s1" class="stage-btn active" onclick="showStage(1)">Stufe 1: Mit Formeln</button>
+        <button id="btn-s2" class="stage-btn" onclick="showStage(2)">Stufe 2: Ohne Formeln</button>
+    </div>
+
     <div class="main-layout">
         <div class="content-area">
-            <table style="width:100%; border-collapse:collapse; margin-bottom:20px; border:1px solid #ddd;">
-                <tr style="background:#eee;">
-                    <th style="padding:10px; border:1px solid #ddd;">Aktiva</th><th style="padding:10px; border:1px solid #ddd;">T€</th>
-                    <th style="padding:10px; border:1px solid #ddd;">Passiva</th><th style="padding:10px; border:1px solid #ddd;">T€</th>
+            <table style="width:100%; border-collapse:collapse; margin-bottom:25px; border:1px solid #ddd; background:#fff;">
+                <tr style="background:#f2f2f2;">
+                    <th style="padding:12px; border:1px solid #ddd;">Aktiva</th><th style="padding:12px; border:1px solid #ddd;">T€</th>
+                    <th style="padding:12px; border:1px solid #ddd;">Passiva</th><th style="padding:12px; border:1px solid #ddd;">T€</th>
                 </tr>
-                <tr><td style="padding:10px; border:1px solid #ddd;">Anlagevermögen</td><td style="padding:10px; border:1px solid #ddd;">2.000</td><td style="padding:10px; border:1px solid #ddd;">Eigenkapital</td><td style="padding:10px; border:1px solid #ddd;">4.000</td></tr>
-                <tr><td style="padding:10px; border:1px solid #ddd;">Umlaufvermögen</td><td style="padding:10px; border:1px solid #ddd;">6.000</td><td style="padding:10px; border:1px solid #ddd;">Fremdkapital</td><td style="padding:10px; border:1px solid #ddd;">4.000</td></tr>
-                <tr style="font-weight:bold;"><td style="padding:10px; border:1px solid #ddd;">Gesamt</td><td style="padding:10px; border:1px solid #ddd;">8.000</td><td style="padding:10px; border:1px solid #ddd;">Gesamt</td><td style="padding:10px; border:1px solid #ddd;">8.000</td></tr>
+                <tr><td style="padding:12px; border:1px solid #ddd;">Anlagevermögen</td><td style="padding:12px; border:1px solid #ddd;">3.000</td><td style="padding:12px; border:1px solid #ddd;">Eigenkapital</td><td style="padding:12px; border:1px solid #ddd;">4.500</td></tr>
+                <tr><td style="padding:12px; border:1px solid #ddd;">Umlaufvermögen</td><td style="padding:12px; border:1px solid #ddd;">6.000</td><td style="padding:12px; border:1px solid #ddd;">Fremdkapital</td><td style="padding:12px; border:1px solid #ddd;">4.500</td></tr>
+                <tr style="font-weight:bold;"><td style="padding:12px; border:1px solid #ddd;">Gesamt</td><td style="padding:12px; border:1px solid #ddd;">9.000</td><td style="padding:12px; border:1px solid #ddd;">Gesamt</td><td style="padding:12px; border:1px solid #ddd;">9.000</td></tr>
             </table>
 
-            <div class="stage-header">Stufe 1: Training (mit Formeln)</div>
-            
-            <div class="exercise-card">
-                <h3>Eigenkapitalquote</h3>
-                <span class="formula-hint">Formel: (Eigenkapital / Gesamtkapital) * 100</span>
-                <div class="input-group">
-                    <input type="number" id="s1_1"> %
-                    <button class="check-btn" onclick="check('s1_1', 50)">Prüfen</button>
+            <div id="stage1" class="stage-content active">
+                <div class="exercise-card">
+                    <h3>Eigenkapitalquote</h3>
+                    <span class="formula-hint">Formel: (Eigenkapital / Gesamtkapital) * 100</span>
+                    <div class="input-group">
+                        <input type="number" id="in1_1"> %
+                        <button class="check-btn" onclick="check('in1_1', 50)">Prüfen</button>
+                    </div>
+                </div>
+
+                <div class="exercise-card dark">
+                    <h3>Anlageintensität</h3>
+                    <span class="formula-hint">Formel: (Anlagevermögen / Gesamtvermögen) * 100</span>
+                    <div class="input-group">
+                        <input type="number" id="in1_2"> %
+                        <button class="check-btn" onclick="check('in1_2', 33.3)">Prüfen</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="exercise-card dark">
-                <h3>Anlageintensität</h3>
-                <span class="formula-hint">Formel: (Anlagevermögen / Gesamtvermögen) * 100</span>
-                <div class="input-group">
-                    <input type="number" id="s1_2"> %
-                    <button class="check-btn" onclick="check('s1_2', 25)">Prüfen</button>
+            <div id="stage2" class="stage-content">
+                <div class="exercise-card">
+                    <h3>Fremdkapitalquote</h3>
+                    <div class="input-group">
+                        <input type="number" id="in2_1"> %
+                        <button class="check-btn" onclick="check('in2_1', 50)">Prüfen</button>
+                    </div>
                 </div>
-            </div>
 
-            <div class="stage-header">Stufe 2: Experte (ohne Formeln)</div>
-
-            <div class="exercise-card">
-                <h3>Fremdkapitalquote</h3>
-                <div class="input-group">
-                    <input type="number" id="s2_1"> %
-                    <button class="check-btn" onclick="check('s2_1', 50)">Prüfen</button>
-                </div>
-            </div>
-
-            <div class="exercise-card dark">
-                <h3>Anlagendeckung I</h3>
-                <div class="input-group">
-                    <input type="number" id="s2_2"> %
-                    <button class="check-btn" onclick="check('s2_2', 200)">Prüfen</button>
+                <div class="exercise-card dark">
+                    <h3>Anlagendeckung I</h3>
+                    <div class="input-group">
+                        <input type="number" id="in2_2"> %
+                        <button class="check-btn" onclick="check('in2_2', 150)">Prüfen</button>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="calculator-sidebar">
-            <h4 style="margin-top:0; color:var(--t1-text);">Wissenschaftlicher Rechner</h4>
+            <h4 style="margin-top:0; color:var(--t1-text);">Rechner (mit Klammern)</h4>
             <input type="text" id="calc-display" readonly>
             <div class="calc-grid">
                 <button class="btn-op" onclick="add('(')">(</button>
@@ -180,15 +210,29 @@
     </div>
 
     <script>
+        function showStage(stageNum) {
+            // Inhalte umschalten
+            document.getElementById('stage1').classList.remove('active');
+            document.getElementById('stage2').classList.remove('active');
+            document.getElementById('stage' + stageNum).classList.add('active');
+
+            // Buttons umschalten
+            document.getElementById('btn-s1').classList.remove('active');
+            document.getElementById('btn-s2').classList.remove('active');
+            document.getElementById('btn-s' + stageNum).classList.add('active');
+        }
+
+        // Rechner Funktionen
         function add(v) { document.getElementById('calc-display').value += v; }
         function clr() { document.getElementById('calc-display').value = ''; }
         function del() { let v = document.getElementById('calc-display').value; document.getElementById('calc-display').value = v.slice(0,-1); }
         function solve() { try { document.getElementById('calc-display').value = eval(document.getElementById('calc-display').value); } catch { document.getElementById('calc-display').value = 'Fehler'; } }
 
+        // Prüf-Funktion
         function check(id, correct) {
             let val = parseFloat(document.getElementById(id).value);
-            if(Math.abs(val - correct) < 0.1) { alert("Sehr gut! Das Ergebnis ist korrekt."); }
-            else { alert("Noch nicht ganz richtig. Überprüfe deine Werte!"); }
+            if(Math.abs(val - correct) < 0.5) { alert("Korrekt!"); }
+            else { alert("Versuchs nochmal!"); }
         }
     </script>
 </body>
