@@ -6,47 +6,39 @@
     <style>
         :root { --t-light: #d6eaf8; --t-text: #1b4f72; }
         body { font-family: 'Segoe UI', sans-serif; background: #fff; color: #333; line-height: 1.6; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        .container { max-width: 800px; width: 100%; }
+        .container { max-width: 850px; width: 100%; }
         header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 30px; }
         .back-btn { text-decoration: none; color: var(--t-text); font-weight: bold; }
         h1 { color: var(--t-text); margin: 0; }
         .section { background: #f9f9f9; padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid var(--t-text); }
         .formula { background: #fff; padding: 15px; border: 1px dashed var(--t-text); border-radius: 8px; font-family: 'Courier New', monospace; font-weight: bold; margin: 10px 0; display: block; text-align: center; }
         .example { background: var(--t-light); padding: 15px; border-radius: 8px; font-size: 0.95em; }
-        .step { color: #2c3e50; font-weight: bold; }
+        .highlight { color: #c0392b; font-weight: bold; }
     </style>
 </head>
 <body>
     <div class="container">
-        <header><h1>Vertikale und horizontale Strukturanalyse</h1><a href="index.html" class="back-btn">← Übersicht</a></header>
+        <header><h1>Bilanzanalyse & Finanzierung</h1><a href="index.html" class="back-btn">← Übersicht</a></header>
 
         <div class="section">
-            <h2>1. Eigenkapitalquote</h2>
-            <p>Diese Kennzahl gibt Auskunft über die finanzielle Stabilität und Unabhängigkeit des Unternehmens gegenüber externen Gläubigern. Ein hoher Wert signalisiert eine geringe Verschuldung.</p>
+            <h2>Eigenkapitalquote</h2>
+            <p>Diese Kennzahl gibt den Anteil des Eigenkapitals am Gesamtkapital an. Sie dient als Maßstab für die finanzielle Unabhängigkeit und Kreditwürdigkeit Ihres Unternehmens.</p>
             <div class="formula">Eigenkapitalquote = (Eigenkapital / Gesamtkapital) * 100</div>
-            <div class="example">
-                <strong>Beispiel:</strong> Ein Unternehmen weist eine Bilanzsumme von 5.000.000 € auf. Das Eigenkapital beträgt 2.000.000 €.<br>
-                <span class="step">Berechnung:</span> (2.000.000 € / 5.000.000 €) * 100 = <strong>40,00 %</strong>
-            </div>
         </div>
 
         <div class="section">
-            <h2>2. Anlagendeckung I</h2>
-            <p>Hierbei prüfen Sie, inwieweit das langfristig gebundene Anlagevermögen durch das langfristig zur Verfügung stehende Eigenkapital finanziert ist (Goldene Bilanzregel).</p>
-            <div class="formula">Anlagendeckung I = (Eigenkapital / Anlagevermögen) * 100</div>
-            <div class="example">
-                <strong>Beispiel:</strong> Das Anlagevermögen beträgt 3.000.000 €. Dem steht ein Eigenkapital von 2.400.000 € gegenüber.<br>
-                <span class="step">Berechnung:</span> (2.400.000 € / 3.000.000 €) * 100 = <strong>80,00 %</strong>
-            </div>
+            <h2>Anlagendeckung II (Silberne Bilanzregel)</h2>
+            <p>Hierbei prüfen Sie, ob das Anlagevermögen durch langfristiges Kapital (Eigenkapital + langfristiges Fremdkapital) gedeckt ist. Zielwert: <span class="highlight">> 100 %</span>.</p>
+            <div class="formula">Anlagendeckung II = ((Eigenkapital + langfr. Fremdkapital) / Anlagevermögen) * 100</div>
         </div>
 
         <div class="section">
-            <h2>3. Liquidität 1. Grades</h2>
-            <p>Diese Kennzahl beschreibt die Fähigkeit des Unternehmens, kurzfristige Verbindlichkeiten sofort mit den verfügbaren flüssigen Mitteln (Bank, Kasse) zu begleichen.</p>
-            <div class="formula">Liquidität 1. Grades = (Flüssige Mittel / kurzfristiges Fremdkapital) * 100</div>
+            <h2>Liquidität 2. Grades (Einzugsliquidität)</h2>
+            <p>Sie gibt an, inwieweit die kurzfristigen Verbindlichkeiten durch flüssige Mittel und Forderungen gedeckt sind. Zielwert: <span class="highlight">ca. 100 %</span>.</p>
+            <div class="formula">Liquidität 2. Grades = ((Flüssige Mittel + Forderungen) / kurzfr. Fremdkapital) * 100</div>
             <div class="example">
-                <strong>Beispiel:</strong> Die flüssigen Mittel betragen 150.000 €. Die kurzfristigen Verbindlichkeiten belaufen sich auf 300.000 €.<br>
-                <span class="step">Berechnung:</span> (150.000 € / 300.000 €) * 100 = <strong>50,00 %</strong>
+                <strong>Beispiel:</strong> Flüssige Mittel (50 T€) + Forderungen (150 T€) bei kurzfristigem Fremdkapital von 200 T€. <br>
+                <strong>Berechnung:</strong> (200.000 / 200.000) * 100 = <strong>100,00 %</strong>
             </div>
         </div>
     </div>
